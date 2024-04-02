@@ -1,4 +1,4 @@
-package com.example.lwb.presentation.ui.theme
+package com.example.lwb.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
