@@ -1,17 +1,23 @@
 package com.example.lwb.exerciseBase.data.repository
 
+import com.example.lwb.exerciseBase.domain.model.Exercise
+import com.example.lwb.exerciseBase.domain.model.ExerciseDetail
 import com.example.lwb.exerciseBase.domain.repository.ExerciseRepository
 
 class ExerciseRepositoryImpl: ExerciseRepository {
-    override suspend fun GetMuscleGroups(): List<String> {
+    override suspend fun getMuscleGroups(): List<String> {
         TODO("Not yet implemented")
     }
 
-    override suspend fun GetExerciseByName(exerciseName: String): ExerciseDetail {
+    override suspend fun getExerciseDetailsByName(exerciseName: String): ExerciseDetail {
         TODO("Not yet implemented")
     }
 
-    override suspend fun GetExercisesByMuscleGroup(muscleGroup: String): ExerciseDetail {
+    override suspend fun getExerciseByName(exerciseName: String): List<Exercise> {
+        TODO("Not yet implemented")
+    }
+
+    override suspend fun getExercisesByMuscleGroup(muscleGroup: String): List<Exercise> {
         TODO("Not yet implemented")
     }
 }

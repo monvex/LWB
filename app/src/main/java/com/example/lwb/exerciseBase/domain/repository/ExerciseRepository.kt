@@ -1,10 +1,14 @@
 package com.example.lwb.exerciseBase.domain.repository
 
+import com.example.lwb.exerciseBase.domain.model.Exercise
+import com.example.lwb.exerciseBase.domain.model.ExerciseDetail
+
 interface ExerciseRepository {
+    suspend fun getMuscleGroups(): List<String>
 
-    suspend fun GetMuscleGroups(): List<String>
+    suspend fun getExerciseByName(exerciseName: String): List<Exercise>
 
-    suspend fun GetExerciseByName(exerciseName: String): ExerciseDetail
+    suspend fun getExercisesByMuscleGroup(muscleGroup: String): List<Exercise>
 
-    suspend fun GetExercisesByMuscleGroup(muscleGroup: String): ExerciseDetail
+    suspend fun getExerciseDetailsByName(exerciseName: String): ExerciseDetail
 }
