@@ -1,0 +1,47 @@
+{
+  "project_info": {
+    "project_number": "1095144257605",
+    "project_id": "lightweightbaby",
+    "storage_bucket": "lightweightbaby.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1095144257605:android:1d7b008a51f2c6bd1f4b2c",
+        "android_client_info": {
+          "package_name": "com.example.lwb"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1095144257605-08fg2rkgdd387v5lbn7fdtucdjsjgg27.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.lwb",
+            "certificate_hash": "198ca94c635cf1de943db8665263d4e3c81e64e9"
+          }
+        },
+        {
+          "client_id": "1095144257605-m4680i4nfkmikdoko6k79cscn99p06ov.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDcWhwO2iMaessCJkvCOXP4tyeFPOzVcgU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1095144257605-m4680i4nfkmikdoko6k79cscn99p06ov.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
