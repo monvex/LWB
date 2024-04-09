@@ -4,12 +4,14 @@ import com.example.lwb.foodDiary.data.remote.dto.ProductDetailsDto
 import com.example.lwb.foodDiary.data.remote.dto.ProductDto
 import com.example.lwb.foodDiary.domain.model.Product
 import com.example.lwb.foodDiary.domain.model.ProductDetails
+import retrofit2.http.GET
 
 //todo: Изменить название файла под название api, которое мы будем юзать
 //todo: Соответственно поменять dto файлы под api, сейчас пока навскидку файлы написаны
 
 interface Api {
+    @GET("api endpoint")
     suspend fun getProductsByName(productName: String): List<ProductDto>
-
+    @GET("api endpoint")
     suspend fun getProductDetailsByName(productName: String): ProductDetailsDto
 }

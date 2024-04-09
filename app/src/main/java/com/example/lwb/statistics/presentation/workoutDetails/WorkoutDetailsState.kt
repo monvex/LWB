@@ -1,3 +1,5 @@
 package com.example.lwb.statistics.presentation.workoutDetails
 
-data class WorkoutDetailsState()
+data class WorkoutDetailsState(
+    val test: String
+)

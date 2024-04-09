@@ -1,3 +1,5 @@
 package com.example.lwb.auth.presentation.login
 
-data class LoginState()
+data class LoginState(
+    val test: String
+)

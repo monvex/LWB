@@ -1,3 +1,5 @@
 package com.example.lwb.foodDiary.domain.model
 
-data class Product()
+data class Product(
+    val test: String
+)

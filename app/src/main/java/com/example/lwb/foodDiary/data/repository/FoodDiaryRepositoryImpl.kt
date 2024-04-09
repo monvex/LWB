@@ -1,10 +1,14 @@
 package com.example.lwb.foodDiary.data.repository
 
+import com.example.lwb.foodDiary.data.remote.Api
 import com.example.lwb.foodDiary.domain.model.Product
 import com.example.lwb.foodDiary.domain.model.ProductDetails
 import com.example.lwb.foodDiary.domain.repository.FoodDiaryRepository
+import javax.inject.Inject
 
-class FoodDiaryRepositoryImpl: FoodDiaryRepository {
+class FoodDiaryRepositoryImpl @Inject constructor(
+    private val api: Api
+): FoodDiaryRepository {
     override suspend fun getProductsByName(productName: String): List<Product> {
         TODO("Not yet implemented")
     }

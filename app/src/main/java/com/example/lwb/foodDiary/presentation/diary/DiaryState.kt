@@ -1,3 +1,5 @@
 package com.example.lwb.foodDiary.presentation.diary
 
-data class DiaryState()
+data class DiaryState(
+    val test: String
+)

@@ -1,3 +1,5 @@
 package com.example.lwb.settings.presentation
 
-data class SettingsState()
+data class SettingsState(
+    val test: String
+)
