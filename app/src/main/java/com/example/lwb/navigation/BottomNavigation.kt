@@ -65,10 +65,10 @@ fun BottomNavigation(
 fun getItemModifier(item: BottomItem): Modifier{
     return when(item.position){
         Position.LEFT -> Modifier
-            .background(Color.Black, shape = RoundedCornerShape(30.dp, 0.dp))
+            .background(Color.Black, shape = RoundedCornerShape(15.dp, 0.dp))
         Position.CENTER -> Modifier
             .background(Color.Black)
         Position.RIGHT -> Modifier
-            .background(Color.Black, shape = RoundedCornerShape(0.dp, 30.dp))
+            .background(Color.Black, shape = RoundedCornerShape(0.dp, 15.dp))
     }
 }
