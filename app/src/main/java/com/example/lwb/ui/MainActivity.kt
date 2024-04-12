@@ -2,6 +2,7 @@ package com.example.lwb.ui
 
 import android.R
 import android.annotation.SuppressLint
+import android.app.Application
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
@@ -53,7 +54,8 @@ class MainActivity : AppCompatActivity() {
             controller.hide(WindowInsetsCompat.Type.systemBars())
             controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
-    setContent { LWBApp() }
+
+    setContent { LWBApp(applicationContext) }
     }
 
 }

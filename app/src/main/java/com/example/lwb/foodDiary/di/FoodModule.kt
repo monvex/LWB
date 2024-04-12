@@ -1,5 +1,6 @@
 package com.example.lwb.foodDiary.di
 
+import android.app.Application
 import com.example.lwb.foodDiary.data.remote.Api
 import com.example.lwb.foodDiary.data.repository.FoodDiaryRepositoryImpl
 import com.example.lwb.foodDiary.domain.repository.FoodDiaryRepository
@@ -22,6 +23,7 @@ object FoodModule {
             .build()
             .create(Api::class.java)
     }
+
 // Аналог в соседнем файле
 // При использовании @Provides, ненужно использовать @Inject constructor() в RepositoryImpl, при использовании @Binds, нужно
 //    @Provides

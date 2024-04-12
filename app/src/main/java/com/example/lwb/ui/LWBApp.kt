@@ -2,6 +2,8 @@ package com.example.lwb.ui
 
 import com.example.lwb.navigation.BottomNavigation
 import android.annotation.SuppressLint
+import android.app.Application
+import android.content.Context
 import android.content.res.Resources
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Scaffold
@@ -27,7 +29,9 @@ import kotlinx.coroutines.CoroutineScope
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter", "UnusedMaterialScaffoldPaddingParameter")
 @Composable
 @ExperimentalMaterialApi
-fun LWBApp(){
+fun LWBApp(
+    context: Context
+){
     LWBTheme {
         val listItems = listOf(
             BottomItem.KnowledgeBase,
@@ -47,7 +51,7 @@ fun LWBApp(){
                 },
                 scaffoldState = appState.scaffoldState
             ) {
-                NavGraph(appState)
+                NavGraph(appState, context)
             }
         }
 
