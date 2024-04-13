@@ -13,7 +13,7 @@
         android:theme="@style/Theme.LWB"
         tools:targetApi="31">
         <activity
-            android:name=".ui.MainActivity"
+            android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar">
             <intent-filter>

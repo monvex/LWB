@@ -1,4 +1,4 @@
-package com.example.lwb.ui
+package com.example.lwb
 
 import com.example.lwb.navigation.BottomNavigation
 import android.annotation.SuppressLint
@@ -16,6 +16,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.platform.LocalContext
+import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
@@ -29,7 +30,8 @@ import kotlinx.coroutines.CoroutineScope
 @Composable
 @ExperimentalMaterialApi
 fun LWBApp(
-    context: Context
+    context: Context,
+    scope: LifecycleCoroutineScope
 ){
     LWBTheme {
         val listItems = listOf(
@@ -50,7 +52,7 @@ fun LWBApp(
                 },
                 scaffoldState = appState.scaffoldState
             ) {
-                NavGraph(appState, context)
+                NavGraph(appState, context, scope)
             }
         }
 
