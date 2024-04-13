@@ -2,7 +2,6 @@ package com.example.lwb.ui
 
 import com.example.lwb.navigation.BottomNavigation
 import android.annotation.SuppressLint
-import android.app.Application
 import android.content.Context
 import android.content.res.Resources
 import androidx.compose.material.ExperimentalMaterialApi
