@@ -17,7 +17,7 @@ import androidx.navigation.compose.composable
 import com.example.lwb.auth.presentation.signin.GoogleAuthUiClient
 import com.example.lwb.auth.presentation.signin.SignInScreen
 import com.example.lwb.auth.presentation.signin.SignInViewModel
-import com.example.lwb.ui.LWBAppState
+import com.example.lwb.LWBAppState
 import com.example.lwb.statistics.presentation.main.MainScreen
 import com.example.lwb.settings.presentation.SettingsScreen
 import com.example.lwb.knowledgeBase.presentation.KnowledgeBaseScreen
@@ -38,7 +38,6 @@ fun NavGraph(
     }
     NavHost(navController = appState.navController, startDestination = "log_in") {
         composable(BottomItem.MainPage.route) {
-
             MainScreen()
         }
         composable(BottomItem.KnowledgeBase.route) {

@@ -1,4 +1,4 @@
-package com.example.lwb.ui
+package com.example.lwb
 
 import android.content.res.Resources
 import androidx.compose.material.ScaffoldState
