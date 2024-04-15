@@ -20,7 +20,7 @@ import com.example.lwb.auth.presentation.signin.SignInViewModel
 import com.example.lwb.LWBAppState
 import com.example.lwb.statistics.presentation.main.MainScreen
 import com.example.lwb.settings.presentation.SettingsScreen
-import com.example.lwb.knowledgeBase.presentation.KnowledgeBaseScreen
+import com.example.lwb.knowledgeBase.presentation.knowledge_base_screen.KnowledgeBaseScreen
 import com.google.android.gms.auth.api.identity.Identity
 import kotlinx.coroutines.launch
 
