@@ -14,8 +14,8 @@ fun KnowledgeBaseScreen(
     Column(
         Modifier.fillMaxSize()
     ) {
-        KnowledgeBaseSectionCard(title = "Продукты", description = "Узнайте все о \nпродуктах \nпитания", imageId = R.drawable.food)
-        KnowledgeBaseSectionCard(title = "Упражнения", description = "Изучите упражнения и технику их выполнения", imageId = R.drawable.exercise)
+        KnowledgeBaseSectionCard(title = "Продукты", description = "Узнайте все о \nпродуктах \nпитания", imageId = R.drawable.food, {})
+        KnowledgeBaseSectionCard(title = "Упражнения", description = "Изучите упражнения и технику их выполнения", imageId = R.drawable.exercise, {})
 
     }
 }

@@ -33,10 +33,11 @@ import com.example.lwb.ui.theme.LWBTheme
 fun KnowledgeBaseSectionCard(
     title: String,
     description: String,
-    imageId: Int
+    imageId: Int,
+    onClick: () -> Unit
 ) {
     Card(
-        onClick = { /*TODO*/ } ,
+        onClick =  onClick,
         modifier = Modifier
             .fillMaxWidth()
             .height(200.dp)
@@ -89,7 +90,7 @@ fun KnowledgeBaseSectionCard(
 @Composable
 fun KnowledgeBaseBaseSectionCardPreview() {
     LWBTheme {
-        KnowledgeBaseSectionCard(title = "Продукты", description = "Узнайте все о продуктах питания", imageId = R.drawable.logo)
+        KnowledgeBaseSectionCard(title = "Продукты", description = "Узнайте все о продуктах питания", imageId = R.drawable.logo, {})
     }
     
 }
