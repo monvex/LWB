@@ -43,6 +43,11 @@ class GoogleAuthUiClient (
                     UserData(
                         userId = uid,
                         username = displayName,
+                        gender = null,
+                        age = null,
+                        weight = null,
+                        desiredWeight = null,
+                        height = null
                     )
                 },
                 errorMessage = null
@@ -70,7 +75,12 @@ class GoogleAuthUiClient (
     fun getSignedInUser(): UserData? = auth.currentUser?.run {
         UserData(
             userId = uid,
-            username = displayName
+            username = displayName,
+            gender = null,
+            age = null,
+            weight = null,
+            desiredWeight = null,
+            height = null
         )
     }
 
