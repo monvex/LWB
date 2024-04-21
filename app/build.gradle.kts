@@ -91,10 +91,14 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
 
-    //Retroofit
+    //Retrofit
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     // Retrofit with Scalar Converter
     implementation("com.squareup.retrofit2:converter-scalars:2.11.0")
+
+    // Retrofit with Gson Converter
+    implementation("com.squareup.retrofit2:converter-gson:2.11.0")
+    implementation("com.google.code.gson:gson:2.9.0")
 
     // Room
     implementation("androidx.room:room-runtime:2.6.1")
