@@ -1,4 +1,4 @@
-package com.example.lwb.auth.presentation.signin
+package com.example.lwb.core.presentation.googleAuth
 
 import android.content.Context
 import android.content.Intent
@@ -41,13 +41,7 @@ class GoogleAuthUiClient (
             SignInResult(
                 data = user?.run {
                     UserData(
-                        userId = uid,
-                        username = displayName,
-                        gender = null,
-                        age = null,
-                        weight = null,
-                        desiredWeight = null,
-                        height = null
+                        userId = uid, gender = "М", age = 20, weight = 80, height = 180, desiredWeight = 85
                     )
                 },
                 errorMessage = null
@@ -75,12 +69,11 @@ class GoogleAuthUiClient (
     fun getSignedInUser(): UserData? = auth.currentUser?.run {
         UserData(
             userId = uid,
-            username = displayName,
-            gender = null,
-            age = null,
-            weight = null,
-            desiredWeight = null,
-            height = null
+            gender = "М",
+            age = 22,
+            weight = 60,
+            desiredWeight = 70,
+            height = 170
         )
     }
 

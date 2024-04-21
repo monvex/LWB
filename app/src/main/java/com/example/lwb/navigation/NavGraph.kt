@@ -14,7 +14,7 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.lwb.auth.presentation.signin.GoogleAuthUiClient
+import com.example.lwb.core.presentation.googleAuth.GoogleAuthUiClient
 import com.example.lwb.auth.presentation.signin.SignInScreen
 import com.example.lwb.auth.presentation.signin.SignInViewModel
 import com.example.lwb.LWBAppState
@@ -44,7 +44,8 @@ fun NavGraph(
             KnowledgeBaseScreen()
         }
         composable(BottomItem.Settings.route) {
-            SettingsScreen(onSignOut = {
+            SettingsScreen(
+                onSignOut = {
                 scope.launch {
                     googleAuthUiClient.signOut()
                     Toast.makeText(
