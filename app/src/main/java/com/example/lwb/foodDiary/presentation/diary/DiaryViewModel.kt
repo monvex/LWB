@@ -9,5 +9,4 @@ import javax.inject.Inject
 class DiaryViewModel @Inject constructor(
     private val repository: FoodDiaryRepository
 ): LWBViewModel() {
-
 }

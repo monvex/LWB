@@ -94,6 +94,7 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
     implementation("androidx.hilt:hilt-navigation-compose:1.0.0")
+    implementation("androidx.hilt:hilt-navigation-fragment:1.0.0")
 
     implementation("com.google.accompanist:accompanist-pager:0.24.2-alpha")
     implementation("com.google.accompanist:accompanist-pager-indicators:0.24.2-alpha")
