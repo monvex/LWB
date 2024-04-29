@@ -27,7 +27,7 @@ fun BottomNavigation(
     )
     androidx.compose.material.BottomNavigation(
         modifier = Modifier
-            .fillMaxHeight(0.065f),
+            .fillMaxHeight(0.06f),
         backgroundColor = Color.White
     ) {
         val backStackEntry by navController.currentBackStackEntryAsState()

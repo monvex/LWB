@@ -14,13 +14,13 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.example.lwb.auth.presentation.signin.GoogleAuthUiClient
+import com.example.lwb.core.presentation.googleAuth.GoogleAuthUiClient
 import com.example.lwb.auth.presentation.signin.SignInScreen
 import com.example.lwb.auth.presentation.signin.SignInViewModel
-import com.example.lwb.ui.LWBAppState
+import com.example.lwb.LWBAppState
 import com.example.lwb.statistics.presentation.main.MainScreen
 import com.example.lwb.settings.presentation.SettingsScreen
-import com.example.lwb.knowledgeBase.presentation.KnowledgeBaseScreen
+import com.example.lwb.knowledgeBase.presentation.knowledge_base_screen.KnowledgeBaseScreen
 import com.google.android.gms.auth.api.identity.Identity
 import kotlinx.coroutines.launch
 
@@ -38,14 +38,14 @@ fun NavGraph(
     }
     NavHost(navController = appState.navController, startDestination = "log_in") {
         composable(BottomItem.MainPage.route) {
-
             MainScreen()
         }
         composable(BottomItem.KnowledgeBase.route) {
             KnowledgeBaseScreen()
         }
         composable(BottomItem.Settings.route) {
-            SettingsScreen(onSignOut = {
+            SettingsScreen(
+                onSignOut = {
                 scope.launch {
                     googleAuthUiClient.signOut()
                     Toast.makeText(

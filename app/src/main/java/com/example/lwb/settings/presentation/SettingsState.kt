@@ -1,5 +1,7 @@
 package com.example.lwb.settings.presentation
 
-data class SettingsState(
-    val test: String
+import com.example.lwb.core.presentation.googleAuth.UserData
+
+data class SettingsUiState(
+    val userData: UserData,
 )

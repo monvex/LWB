@@ -91,7 +91,7 @@ dependencies {
     implementation("com.google.dagger:hilt-android:2.51.1")
     kapt("com.google.dagger:hilt-android-compiler:2.51.1")
 
-    //Retrofit
+    //Retroofit
     implementation("com.squareup.retrofit2:retrofit:2.11.0")
     // Retrofit with Scalar Converter
     implementation("com.squareup.retrofit2:converter-scalars:2.11.0")
@@ -104,6 +104,11 @@ dependencies {
     implementation("androidx.room:room-runtime:2.6.1")
     annotationProcessor("androidx.room:room-compiler:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
+
+    implementation("io.github.boguszpawlowski.composecalendar:composecalendar:1.2.0")
+
+    // separate artifact with utilities for working with kotlinx-datetime
+    implementation("io.github.boguszpawlowski.composecalendar:kotlinx-datetime:1.2.0")
 }
 
 
