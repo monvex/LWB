@@ -23,6 +23,7 @@ import com.example.lwb.settings.presentation.SettingsScreen
 import com.example.lwb.knowledgeBase.presentation.knowledge_base_screen.KnowledgeBaseScreen
 import com.google.android.gms.auth.api.identity.Identity
 import kotlinx.coroutines.launch
+import com.example.lwb.exerciseBase.presentation.exercisePage.ExercisePageScreen
 
 @Composable
 fun NavGraph(
@@ -41,7 +42,7 @@ fun NavGraph(
             MainScreen()
         }
         composable(BottomItem.KnowledgeBase.route) {
-            KnowledgeBaseScreen()
+            KnowledgeBaseScreen(appState.navController)
         }
         composable(BottomItem.Settings.route) {
             SettingsScreen(
@@ -103,6 +104,12 @@ fun NavGraph(
                     )
                 }
             })
+        }
+        composable("exercisePage") {
+            ExercisePageScreen();
+        }
+        composable("foodPage") {
+            // FoodPageScreen();
         }
     }
 }

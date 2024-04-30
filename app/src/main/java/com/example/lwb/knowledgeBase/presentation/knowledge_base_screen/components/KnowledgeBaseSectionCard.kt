@@ -25,6 +25,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.lwb.R
 import com.example.lwb.ui.theme.LWBTheme
 
@@ -34,14 +35,15 @@ fun KnowledgeBaseSectionCard(
     title: String,
     description: String,
     imageId: Int,
-    onClick: () -> Unit
+    navController: NavController?,
+    destination: String
 ) {
     Card(
-        onClick =  onClick,
+        onClick = { navController?.navigate(destination) },
         modifier = Modifier
             .fillMaxWidth()
             .height(200.dp)
-            .padding(horizontal = 32.dp , vertical = 20.dp),
+            .padding(horizontal = 32.dp, vertical = 20.dp),
         shape = RoundedCornerShape(15.dp),
         border = BorderStroke(2.dp, Color.Black) ,
         elevation = 16.dp
@@ -90,7 +92,7 @@ fun KnowledgeBaseSectionCard(
 @Composable
 fun KnowledgeBaseBaseSectionCardPreview() {
     LWBTheme {
-        KnowledgeBaseSectionCard(title = "Продукты", description = "Узнайте все о продуктах питания", imageId = R.drawable.logo, {})
+        KnowledgeBaseSectionCard(title = "Продукты", description = "Узнайте все о продуктах питания", imageId = R.drawable.logo, navController = null, destination = "exercisePage")
     }
     
 }
