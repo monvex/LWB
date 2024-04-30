@@ -18,6 +18,7 @@ import com.example.lwb.core.presentation.googleAuth.GoogleAuthUiClient
 import com.example.lwb.auth.presentation.signin.SignInScreen
 import com.example.lwb.auth.presentation.signin.SignInViewModel
 import com.example.lwb.LWBAppState
+import com.example.lwb.foodDiary.presentation.diary.DiaryScreen
 import com.example.lwb.statistics.presentation.main.MainScreen
 import com.example.lwb.settings.presentation.SettingsScreen
 import com.example.lwb.knowledgeBase.presentation.knowledge_base_screen.KnowledgeBaseScreen
@@ -38,7 +39,7 @@ fun NavGraph(
     }
     NavHost(navController = appState.navController, startDestination = "log_in") {
         composable(BottomItem.MainPage.route) {
-            MainScreen()
+            MainScreen { appState.navigateAndPopUp("foodDiary", BottomItem.MainPage.route) }
         }
         composable(BottomItem.KnowledgeBase.route) {
             KnowledgeBaseScreen()
@@ -103,6 +104,9 @@ fun NavGraph(
                     )
                 }
             })
+        }
+        composable("foodDiary") {
+            DiaryScreen()
         }
     }
 }

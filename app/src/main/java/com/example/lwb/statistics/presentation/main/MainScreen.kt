@@ -3,6 +3,8 @@ package com.example.lwb.statistics.presentation.main
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
@@ -24,15 +26,20 @@ import java.time.LocalDate
 import java.time.YearMonth
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import com.example.lwb.R
+import com.example.lwb.statistics.presentation.main.components.MainSectionCard
 
 @Composable
 fun MainScreen(
-
+    onNavigateFoodDiary: () -> Unit
 ){
     Box(
         modifier = Modifier.padding(5.dp)
     ) {
         ShowCalendar()
+        Column(){
+            MainSectionCard(title = "Питание", description = "", imageId = R.drawable.food, onNavigateFoodDiary)
+        }
     }
 }
 
