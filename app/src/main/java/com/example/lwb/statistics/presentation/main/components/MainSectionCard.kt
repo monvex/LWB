@@ -1,4 +1,4 @@
-package com.example.lwb.knowledgeBase.presentation.knowledge_base_screen.components
+package com.example.lwb.statistics.presentation.main.components
 
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
@@ -22,31 +22,24 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.navigation.NavController
-import com.example.lwb.R
-import com.example.lwb.ui.theme.LWBTheme
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun KnowledgeBaseSectionCard(
+fun MainSectionCard(
     title: String,
     description: String,
     imageId: Int,
-    navController: NavController?,
-    destination: String
+    onClick: () -> Unit
 ) {
     Card(
-        onClick = { navController?.navigate(destination) },
+        onClick =  onClick,
         modifier = Modifier
-            .fillMaxWidth()
             .height(200.dp)
-            .padding(horizontal = 32.dp, vertical = 20.dp),
+            .padding(horizontal = 32.dp , vertical = 20.dp),
         shape = RoundedCornerShape(15.dp),
-        border = BorderStroke(2.dp, Color.Black) ,
-        elevation = 16.dp
+        border = BorderStroke(2.dp, Color.Black)
     ) {
         Row(
             modifier = Modifier
@@ -81,17 +74,4 @@ fun KnowledgeBaseSectionCard(
             )
         }
     }
-}
-
-
-@Preview(
-    apiLevel = 33,
-    showSystemUi = true
-)
-@Composable
-fun KnowledgeBaseBaseSectionCardPreview() {
-    LWBTheme {
-        KnowledgeBaseSectionCard(title = "Продукты", description = "Узнайте все о продуктах питания", imageId = R.drawable.logo, navController = null, destination = "exercisePage")
-    }
-    
 }
