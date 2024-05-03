@@ -41,7 +41,7 @@ abstract class LWBDatabase : RoomDatabase() {
         }
 
         fun createCloudSqlConnection(): Connection {
-            val url = "jdbc:mysql://localhost:3306/LWB"
+            val url = "jdbc:mysql://158.160.12.90:3306/LWB"
             val user = "root"
             val password = "test"
             return DriverManager.getConnection(url, user, password)
