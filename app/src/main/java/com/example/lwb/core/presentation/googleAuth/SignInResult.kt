@@ -14,17 +14,3 @@ data class UserData(
     val desiredWeight: Int? = 0
 )
 
-data class Today(
-    val date: String = "",
-    val userWeight: Int? = 0,
-    val consumedWater: Float = 2.8f,
-    val consumedCalories: Int = 1000,
-    val consumedProteins: Float = 0.0f,
-    val consumedFats: Float = 0.0f,
-    val consumedCarbohydrates: Float = 0.0f,
-    val recommenderWater: Float = 2.0f,
-    val recommendedCalories: Int = 1800,
-    val recommendedProteins: Float = 0.0f,
-    val recommendedFats: Float = 0.0f,
-    val recommendedCarbohydrates: Float = 0.0f
-)
