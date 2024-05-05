@@ -76,13 +76,13 @@ dependencies {
     implementation("com.google.firebase:firebase-inappmessaging-ktx:20.4.1")
     implementation("androidx.compose.material3:material3-android:1.2.1")
     implementation("androidx.appcompat:appcompat:1.6.1")
+    implementation("androidx.test.ext:junit-ktx:1.1.5")
     testImplementation("junit:junit:4.13.2")
     testImplementation("org.junit.jupiter:junit-jupiter:5.8.1")
     testImplementation("org.junit.jupiter:junit-jupiter-api:5.8.1")
     testImplementation("org.junit.jupiter:junit-jupiter-engine:5.8.1")
     testImplementation("org.mockito:mockito-core:5.6.0")
     testImplementation("org.mockito:mockito-junit-jupiter:4.2.0")
-    testImplementation("mysql:mysql-connector-java:8.0.28")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
     androidTestImplementation(platform("androidx.compose:compose-bom:2024.05.00"))
@@ -93,7 +93,6 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
     implementation("androidx.compose.material:material")
 
-    implementation("com.zaxxer:HikariCP:5.0.0")
 
     //ViewModel Compose
     implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.7.0")
@@ -107,6 +106,7 @@ dependencies {
     // Room
     implementation("androidx.room:room-runtime:2.6.1")
     ksp("androidx.room:room-compiler:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
 
     //Retroofit
     implementation("com.squareup.retrofit2:retrofit:2.11.0")

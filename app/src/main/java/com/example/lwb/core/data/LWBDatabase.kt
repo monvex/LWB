@@ -1,22 +1,16 @@
 package com.example.lwb.core.data
 
-import com.zaxxer.hikari.HikariConfig
-import com.zaxxer.hikari.HikariDataSource
-import java.sql.Connection
+import androidx.room.Database
+import androidx.room.RoomDatabase
+import com.example.lwb.core.data.dao.*
+import com.example.lwb.core.data.entities.*
 
-class LWBDatabase {
-    companion object {
-        val hikariConfig = HikariConfig().apply {
-            jdbcUrl = "jdbc:mysql://158.160.12.90:3306/LWB"
-            username = "root"
-            password = "test"
-            driverClassName = "com.mysql.cj.jdbc.Driver"
-        }
-
-        private val dataSource = HikariDataSource(hikariConfig)
-
-        fun createCloudSqlConnection(): Connection {
-            return dataSource.connection
-        }
-    }
+@Database(entities = [User::class, Product::class, Exercise::class, Training::class, Day::class, Meal::class], version = 1, exportSchema = false)
+abstract class LWBDatabase : RoomDatabase() {
+    abstract fun userDao(): UserDao
+    abstract fun productDao(): ProductDao
+    abstract fun exerciseDao(): ExerciseDao
+    abstract fun trainingDao(): TrainingDao
+    abstract fun dayDao(): DayDao
+    abstract fun mealDao(): MealDao
 }
