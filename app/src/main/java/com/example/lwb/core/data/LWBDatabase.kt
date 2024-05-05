@@ -1,15 +1,22 @@
 package com.example.lwb.core.data
 
+import com.zaxxer.hikari.HikariConfig
+import com.zaxxer.hikari.HikariDataSource
 import java.sql.Connection
-import java.sql.DriverManager
 
 class LWBDatabase {
     companion object {
+        val hikariConfig = HikariConfig().apply {
+            jdbcUrl = "jdbc:mysql://158.160.12.90:3306/LWB"
+            username = "root"
+            password = "test"
+            driverClassName = "com.mysql.cj.jdbc.Driver"
+        }
+
+        private val dataSource = HikariDataSource(hikariConfig)
+
         fun createCloudSqlConnection(): Connection {
-            val url = "jdbc:mysql://158.160.12.90:3306/LWB"
-            val user = "root"
-            val password = "test"
-            return DriverManager.getConnection(url, user, password)
+            return dataSource.connection
         }
     }
 }
