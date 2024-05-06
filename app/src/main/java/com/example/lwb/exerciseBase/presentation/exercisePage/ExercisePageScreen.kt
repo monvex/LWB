@@ -7,10 +7,11 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.lazy.grid.rememberLazyGridState
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.*
+import androidx.compose.material3.*
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -25,8 +26,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.lwb.R
 import com.example.lwb.core.data.entities.Exercise
-import kotlinx.coroutines.launch
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ExercisePageScreen(
     viewModel: ExercisePageViewModel = hiltViewModel()
@@ -37,18 +38,23 @@ fun ExercisePageScreen(
     Scaffold(
         topBar = {
             TopAppBar(
-                backgroundColor = Color.Black,
-                contentColor = Color.White,
-                modifier = Modifier
-                    .height(30.dp)
-                    .clip(shape = RoundedCornerShape(0.dp, 0.dp, 15.dp, 15.dp)),
+                colors = TopAppBarDefaults.topAppBarColors(
+                    titleContentColor = Color.White,
+                    containerColor = Color.Black
+                ),
+                modifier = Modifier.height(30.dp)
+                    .clip(RoundedCornerShape(
+                        topStart = 0.dp,
+                        topEnd = 0.dp,
+                        bottomStart = 16.dp,
+                        bottomEnd = 16.dp
+                    )),
                 title = {
                     Text(
                         text = "Упражнения",
                         fontSize = 20.sp,
                         textAlign = TextAlign.Center,
-                        modifier = Modifier.fillMaxWidth(),
-                        color = Color.White
+                        modifier = Modifier.fillMaxWidth()
                     )
                 }
             )
@@ -75,9 +81,16 @@ fun ExercisePageScreen(
                     }
                 }
             } else {
-                LazyColumn {
-                    items(searchResults) { exercise ->
-                        ExerciseCard(exercise = exercise)
+                val gridState = rememberLazyGridState()
+                LazyVerticalGrid(
+                    state = gridState,
+                    columns = GridCells.Fixed(2)
+                ) {
+                    items(state.muscleGroups) { muscleGroup ->
+                        ExerciseMuscleGroupCard(
+                            muscleGroupName = muscleGroup,
+                            onClick = { /* TODO: Handle click */ }
+                        )
                     }
                 }
             }
@@ -93,16 +106,26 @@ fun ExerciseMuscleGroupCard(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(8.dp)
+            .padding(14.dp)
             .clickable(onClick = onClick),
-        elevation = 4.dp
+        elevation = CardDefaults.cardElevation(4.dp),
+        shape = RoundedCornerShape(15.dp)
     ) {
-        Text(
-            text = muscleGroupName,
-            modifier = Modifier.padding(16.dp),
-            style = MaterialTheme.typography.h6,
-            textAlign = TextAlign.Center
-        )
+        Column (horizontalAlignment = Alignment.CenterHorizontally,
+            modifier = Modifier.fillMaxWidth()
+                .padding(8.dp)) {
+            Text(
+                text = muscleGroupName,
+                style = MaterialTheme.typography.titleMedium,
+                textAlign = TextAlign.Center
+            )
+            Image(
+                painter = painterResource(id = R.drawable.ic_launcher_background),
+                contentDescription = "Exercise Image",
+                modifier = Modifier
+                    .size(80.dp)
+            )
+        }
     }
 }
 
@@ -125,7 +148,7 @@ fun ExerciseCard(exercise: Exercise) {
         Spacer(modifier = Modifier.width(16.dp))
         Text(
             text = exercise.name ?: "Undefined",
-            style = MaterialTheme.typography.h6
+            style = MaterialTheme.typography.titleMedium
         )
     }
 }

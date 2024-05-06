@@ -18,7 +18,7 @@ class ExercisePageViewModel @Inject constructor(
     private val _state = MutableStateFlow(ExercisePageState())
     val state: StateFlow<ExercisePageState> = _state
 
-    private val muscleGroups = listOf("Плечи", "Ноги", "Спина", "Грудь", "Пресс", "Руки")
+    private val muscleGroups = listOf("Плечи", "Ноги", "Спина", "Грудь", "Пресс", "Руки", "Пиво")
 
     init {
         _state.value = _state.value.copy(
