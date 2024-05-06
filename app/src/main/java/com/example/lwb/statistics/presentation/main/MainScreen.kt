@@ -4,6 +4,7 @@ import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -36,8 +37,9 @@ fun MainScreen(
     Box(
         modifier = Modifier.padding(5.dp)
     ) {
-        ShowCalendar()
+
         Column(){
+            ShowCalendar()
             MainSectionCard(title = "Питание", description = "", imageId = R.drawable.food, onNavigateFoodDiary)
         }
     }

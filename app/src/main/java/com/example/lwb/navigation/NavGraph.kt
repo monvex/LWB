@@ -38,7 +38,7 @@ fun NavGraph(
             oneTapClient = Identity.getSignInClient(context)
         )
     }
-    NavHost(navController = appState.navController, startDestination = "log_in") {
+    NavHost(navController = appState.navController, startDestination = BottomItem.MainPage.route) {
         composable(BottomItem.MainPage.route) {
             MainScreen { appState.navigateAndPopUp("foodDiary", BottomItem.MainPage.route) }
         }
