@@ -3,7 +3,6 @@ package com.example.lwb
 import android.R
 import android.annotation.SuppressLint
 import android.os.Bundle
-import android.util.Log
 import androidx.activity.compose.setContent
 import androidx.appcompat.app.AppCompatActivity
 import androidx.compose.material.ExperimentalMaterialApi
@@ -11,16 +10,14 @@ import androidx.core.view.WindowCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.lifecycleScope
-import androidx.room.Room
-import androidx.room.RoomDatabase
-import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.lwb.core.data.LWBDatabase
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.launch
+import javax.inject.Inject
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
-    private lateinit var database: LWBDatabase
+    @Inject
+    lateinit var database: LWBDatabase
 
     @OptIn(ExperimentalMaterialApi::class)
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -33,19 +30,18 @@ class MainActivity : AppCompatActivity() {
             controller.systemBarsBehavior = WindowInsetsControllerCompat.BEHAVIOR_SHOW_TRANSIENT_BARS_BY_SWIPE
         }
 
-        // Создание экземпляра базы данных Room
-        database = Room.databaseBuilder(
-            this,
-            LWBDatabase::class.java,
-            "lwb.db"
-        )
-            .createFromAsset("lwb.db") // Использование предварительно заполненной базы данных
-            .addCallback(object : RoomDatabase.Callback() {
-                override fun onCreate(db: SupportSQLiteDatabase) {
-                    super.onCreate(db)
-                }
-            })
-            .build()
+        // Запускаем корутину для получения упражнений из базы данных
+//        lifecycleScope.launch {
+//            val exercises = database.exerciseDao().getAll()
+//            if (exercises.isEmpty()) {
+//                Log.d("Exercise", "No exercises found in the database.")
+//            } else {
+//                exercises.forEach { exercise ->
+//                    Log.d("Exercise", exercise.toString())
+//                }
+//            }
+//        }
+
 
         setContent { LWBApp(applicationContext, lifecycleScope) }
     }
