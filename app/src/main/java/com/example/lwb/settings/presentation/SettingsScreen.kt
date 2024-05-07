@@ -30,7 +30,7 @@ fun SettingsScreen(
     onSignOut: () -> Unit,
     viewModel: SettingsViewModel = hiltViewModel()
 ){
-    val user by viewModel.userData
+    val user by viewModel.user
     Box(
         modifier = Modifier
             .fillMaxWidth()
@@ -225,7 +225,7 @@ fun SettingsScreen(
                         .padding(10.dp)
                 ) {
                     OutlinedTextField(
-                        value = if (user?.targetWeight == 0) "" else user?.targetWeight.toString(),
+                        value = if (user?.desiredWeight == 0) "" else user?.desiredWeight.toString(),
                         onValueChange = {
                             if (it == "") {
                                 viewModel.onDesiredWeightChange(0)

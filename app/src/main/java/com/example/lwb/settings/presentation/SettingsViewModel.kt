@@ -1,35 +1,64 @@
 package com.example.lwb.settings.presentation
 
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.viewModelScope
+import com.example.lwb.core.data.dao.UserDao
+import com.example.lwb.core.data.entities.User
 import com.example.lwb.core.presentation.LWBViewModel
 import com.example.lwb.core.presentation.googleAuth.GoogleAuthUiClient
 import com.example.lwb.core.presentation.googleAuth.UserData
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 
 @HiltViewModel
 class SettingsViewModel @Inject constructor(
+    private val userDao: UserDao
 ) : LWBViewModel() {
 
-    var userData = mutableStateOf(UserData())
+    var user = mutableStateOf(User())
 
+    init{
+        viewModelScope.launch{
+            searchUser()
+        }
+    }
     fun onHeightChange(newValue: Int) {
-        userData.value = userData.value.copy(height = newValue)
+        user.value = user.value.copy(height = newValue)
+        viewModelScope.launch{
+            userDao.update(user.value)
+        }
     }
     fun onAgeChange(newValue: Int) {
-        userData.value = userData.value.copy(age = newValue)
+        user.value = user.value.copy(age = newValue)
+        viewModelScope.launch{
+            userDao.update(user.value)
+        }
     }
 
     fun onGenderChange(newValue: String) {
-        userData.value = userData.value.copy(gender = newValue)
+        user.value = user.value.copy(gender = newValue)
+        viewModelScope.launch{
+            userDao.update(user.value)
+        }
     }
 
     fun onWeightChange(newValue: Int) {
-        userData.value = userData.value.copy(weight = newValue)
+        user.value = user.value.copy(weight = newValue)
+        viewModelScope.launch{
+            userDao.update(user.value)
+        }
     }
 
     fun onDesiredWeightChange(newValue: Int) {
-        userData.value = userData.value.copy(targetWeight = newValue)
+        user.value = user.value.copy(desiredWeight = newValue)
+        viewModelScope.launch{
+            userDao.update(user.value)
+        }
+    }
+
+    suspend fun searchUser(){
+        user.value = userDao.getAll()[0]
     }
 }
