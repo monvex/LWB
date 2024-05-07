@@ -37,6 +37,9 @@ DiaryViewModel @Inject constructor(
 
     fun onConsumedWaterChange(newValue: Int) {
         today.value = today.value.copy(waterIntake = newValue)
+        viewModelScope.launch{
+            dayDao.update(today.value)
+        }
     }
 
     private suspend fun searchToday() {
