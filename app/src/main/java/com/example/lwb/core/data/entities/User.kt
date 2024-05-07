@@ -5,11 +5,10 @@ import androidx.room.PrimaryKey
 
 @Entity
 data class User(
-    @PrimaryKey val id: Int,
-    val googleId: String,
-    val gender: String,
-    val age: Int,
-    val height: Int,
-    val currentWeight: Int,
-    val desiredWeight: Int
+    @PrimaryKey val id: Int = 0,
+    val gender: String = "",
+    val age: Int = 0,
+    val height: Int = 0,
+    val weight: Int = 0,
+    val desiredWeight: Int = 0
 )

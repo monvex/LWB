@@ -1,6 +1,6 @@
 package com.example.lwb.exerciseBase.data.repository
 
-import com.example.lwb.exerciseBase.domain.model.Exercise
+import com.example.lwb.core.data.entities.Exercise
 import com.example.lwb.exerciseBase.domain.model.ExerciseDetail
 import com.example.lwb.exerciseBase.domain.repository.ExerciseRepository
 

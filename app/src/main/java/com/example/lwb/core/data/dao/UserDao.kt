@@ -8,8 +8,8 @@ import com.example.lwb.core.data.entities.User
 
 @Dao
 interface UserDao {
-    @Query("SELECT * FROM user")
-    fun getAll(): List<User>
+    @Query("SELECT * FROM User")
+    suspend fun getAll(): List<User>
 
     @Insert
     fun insert(user: User)

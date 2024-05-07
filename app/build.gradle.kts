@@ -122,4 +122,6 @@ dependencies {
 
     // separate artifact with utilities for working with kotlinx-datetime
     implementation("io.github.boguszpawlowski.composecalendar:kotlinx-datetime:1.2.0")
+
+    implementation("androidx.graphics:graphics-shapes:1.0.0-alpha05")
 }

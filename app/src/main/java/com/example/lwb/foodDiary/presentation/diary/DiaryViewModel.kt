@@ -1,31 +1,58 @@
 package com.example.lwb.foodDiary.presentation.diary
 
 import androidx.compose.runtime.mutableStateOf
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
+import com.example.lwb.core.data.dao.DayDao
+import com.example.lwb.core.data.dao.ExerciseDao
+import com.example.lwb.core.data.dao.UserDao
+import com.example.lwb.core.data.entities.Day
+import com.example.lwb.core.data.entities.Exercise
 import com.example.lwb.core.presentation.LWBViewModel
-import com.example.lwb.core.presentation.googleAuth.UserData
 import com.example.lwb.foodDiary.domain.model.Today
 import com.example.lwb.foodDiary.domain.repository.FoodDiaryRepository
+import com.example.lwb.foodDiary.presentation.diary.components.FoodAlgoritms
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.util.Calendar
 import javax.inject.Inject
 
 @HiltViewModel
-class DiaryViewModel @Inject constructor(
+class
+DiaryViewModel @Inject constructor(
+    private val dayDao: DayDao,
+    private val userDao: UserDao,
+    private val foodAlgoritms: FoodAlgoritms
 ): LWBViewModel() {
-    var todayData = mutableStateOf(Today())
-    var writtenConsumedWater = mutableStateOf(String)
+    val today = mutableStateOf(Day(LocalDate.now().toString()))
 
-    fun onConsumedWaterChange(newValue: Int) {
-        todayData.value = todayData.value.copy(consumedWater = newValue)
+    init {
+        viewModelScope.launch{
+            searchToday()
+        }
     }
 
-    fun checkFloat(value: String): Boolean{
-        for (i in  1..value.length - 2)
-            if (!((value[i].isDigit()) or (value[i] == '.') or (value[i] == ','))){
-                return false
-            }
-        if (!value[value.length - 1].isDigit()){
-            return false
+    fun onConsumedWaterChange(newValue: Int) {
+        today.value = today.value.copy(waterIntake = newValue)
+    }
+
+    private suspend fun searchToday() {
+        val c = Calendar.getInstance()
+
+        val year = c.get(Calendar.YEAR)
+        val month = c.get(Calendar.MONTH) + 1
+        val day = c.get(Calendar.DAY_OF_MONTH)
+        val searchResult = dayDao.getAll("$day-$month-$year")
+        if (searchResult.isNotEmpty()){
+            today.value = searchResult[0]
         }
-        return true
+        else{
+            val user = userDao.getAll()[0]
+            today.value = Day("$day-$month-$year", user.weight, 0, 0, 0, 0, 0, foodAlgoritms.calculateWater(user), foodAlgoritms.calculateCalories(user), foodAlgoritms.calculateProteins(user), foodAlgoritms.calculateFats(user), foodAlgoritms.calculateCarbohydrates(user))
+            dayDao.insert(today.value)
+        }
     }
 }

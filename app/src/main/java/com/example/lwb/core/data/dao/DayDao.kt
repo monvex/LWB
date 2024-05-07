@@ -8,12 +8,12 @@ import com.example.lwb.core.data.entities.Day
 
 @Dao
 interface DayDao {
-    @Query("SELECT * FROM day")
-    fun getAll(): List<Day>
+    @Query("SELECT * FROM Day WHERE date = :today")
+    suspend fun getAll(today: String): List<Day>
 
     @Insert
-    fun insert(day: Day)
+    suspend fun insert(day: Day)
 
     @Delete
-    fun delete(day: Day)
+    suspend fun delete(vararg day: Day)
 }

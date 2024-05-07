@@ -5,7 +5,9 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.lwb.core.data.LWBDatabase
+import com.example.lwb.core.data.dao.DayDao
 import com.example.lwb.core.data.dao.ExerciseDao
+import com.example.lwb.core.data.dao.UserDao
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -36,5 +38,15 @@ object DatabaseModule {
     @Provides
     fun provideExerciseDao(database: LWBDatabase): ExerciseDao {
         return database.exerciseDao()
+    }
+
+    @Provides
+    fun provideDayDao(database: LWBDatabase): DayDao {
+        return database.dayDao()
+    }
+
+    @Provides
+    fun provideUserDao(database: LWBDatabase): UserDao {
+        return database.userDao()
     }
 }

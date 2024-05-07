@@ -11,7 +11,8 @@ import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class ExercisePageViewModel @Inject constructor(
+class
+ExercisePageViewModel @Inject constructor(
     private val exerciseDao: ExerciseDao
 ) : ViewModel() {
 

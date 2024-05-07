@@ -4,13 +4,20 @@ import android.content.Context
 import android.content.Intent
 import android.content.IntentSender
 import com.example.lwb.R
+import com.example.lwb.core.data.LWBDatabase
 import com.google.android.gms.auth.api.identity.BeginSignInRequest
 import com.google.android.gms.auth.api.identity.BeginSignInRequest.GoogleIdTokenRequestOptions
 import com.google.android.gms.auth.api.identity.SignInClient
 import com.google.firebase.auth.GoogleAuthProvider
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
 import kotlinx.coroutines.tasks.await
+import java.sql.Connection
+import java.sql.ResultSet
+import java.sql.Statement
 import java.util.concurrent.CancellationException
 
 class GoogleAuthUiClient (
@@ -41,7 +48,7 @@ class GoogleAuthUiClient (
             SignInResult(
                 data = user?.run {
                     UserData(
-                        userId = uid, gender = "М", age = 20, weight = 80, height = 180, desiredWeight = 85
+                        userId = uid
                     )
                 },
                 errorMessage = null
@@ -66,14 +73,9 @@ class GoogleAuthUiClient (
         }
     }
 
-    fun getSignedInUser(): UserData? = auth.currentUser?.run {
+    suspend fun getSignedInUser() {
         UserData(
-            userId = uid,
-            gender = "М",
-            age = 22,
-            weight = 60,
-            desiredWeight = 70,
-            height = 170
+            userId = "asd"
         )
     }
 

@@ -70,7 +70,7 @@ fun SettingsScreen(
                         .padding(10.dp)
                 ) {
                     OutlinedTextField(
-                        value = if (user.height == 0) "" else user.height.toString(),
+                        value = if (user?.height == 0) "" else user?.height.toString(),
                         onValueChange = {
                             if (it == "") {
                                 viewModel.onHeightChange(0)
@@ -108,7 +108,7 @@ fun SettingsScreen(
                         .padding(10.dp)
                 ) {
                     OutlinedTextField(
-                        value = if (user.age == 0) "" else user.age.toString(),
+                        value = if (user?.age == 0) "" else user?.age.toString(),
                         onValueChange = {
                             if (it == "") {
                                 viewModel.onAgeChange(0)
@@ -150,7 +150,7 @@ fun SettingsScreen(
                             Button(
                                 onClick = { viewModel.onGenderChange("М") },
                                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
-                                enabled = user.gender == "Ж"
+                                enabled = user?.gender == "Ж"
                             ) {
                                 Text(text = "М")
                             }
@@ -159,7 +159,7 @@ fun SettingsScreen(
                             Button(
                                 onClick = { viewModel.onGenderChange("Ж") },
                                 colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
-                                enabled = user.gender == "М"
+                                enabled = user?.gender == "М"
                             ) {
                                 Text(text = "Ж")
                             }
@@ -187,7 +187,7 @@ fun SettingsScreen(
                         .padding(10.dp)
                 ) {
                     OutlinedTextField(
-                        value = if (user.weight == 0) "" else user.weight.toString(),
+                        value = if (user?.weight == 0) "" else user?.weight.toString(),
                         onValueChange = {
                             if (it == "") {
                                 viewModel.onWeightChange(0)
@@ -225,7 +225,7 @@ fun SettingsScreen(
                         .padding(10.dp)
                 ) {
                     OutlinedTextField(
-                        value = if (user.desiredWeight == 0) "" else user.desiredWeight.toString(),
+                        value = if (user?.targetWeight == 0) "" else user?.targetWeight.toString(),
                         onValueChange = {
                             if (it == "") {
                                 viewModel.onDesiredWeightChange(0)
