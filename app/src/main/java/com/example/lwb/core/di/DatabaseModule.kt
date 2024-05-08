@@ -7,6 +7,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import com.example.lwb.core.data.LWBDatabase
 import com.example.lwb.core.data.dao.DayDao
 import com.example.lwb.core.data.dao.ExerciseDao
+import com.example.lwb.core.data.dao.ProductDao
 import com.example.lwb.core.data.dao.UserDao
 import dagger.Module
 import dagger.Provides
@@ -48,5 +49,10 @@ object DatabaseModule {
     @Provides
     fun provideUserDao(database: LWBDatabase): UserDao {
         return database.userDao()
+    }
+
+    @Provides
+    fun provideProductDao(database: LWBDatabase): ProductDao {
+        return database.productDao()
     }
 }

@@ -124,4 +124,6 @@ dependencies {
     implementation("io.github.boguszpawlowski.composecalendar:kotlinx-datetime:1.2.0")
 
     implementation("androidx.graphics:graphics-shapes:1.0.0-alpha05")
+
+    implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
 }

@@ -4,7 +4,7 @@
     <enableKtlint>false</enableKtlint>
     <disabledRules>
       <list>
-        <option value="trailing-comma-on-call-site" />
+        <option value="no-unused-imports" />
       </list>
     </disabledRules>
   </component>

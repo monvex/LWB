@@ -9,7 +9,7 @@ import com.example.lwb.core.data.entities.Product
 @Dao
 interface ProductDao {
     @Query("SELECT * FROM product")
-    fun getAll(): List<Product>
+    suspend fun getAll(): List<Product>
 
     @Insert
     fun insert(product: Product)

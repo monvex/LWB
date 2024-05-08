@@ -13,6 +13,5 @@ data class Product(
     val proteins: Int,
     val fats: Int,
     val carbohydrates: Int,
-    @TypeConverters(ImageConverter::class)
-    val image: ByteArray
+    val image: String
 )
