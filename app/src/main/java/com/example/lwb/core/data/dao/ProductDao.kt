@@ -14,6 +14,9 @@ interface ProductDao {
     @Query("SELECT * FROM Product WHERE name like :name")
     suspend fun getByName(name: String): List<Product>
 
+    @Query("SELECT * FROM Product WHERE id like :id")
+    suspend fun getById(id: Int): List<Product>
+
     @Insert
     fun insert(product: Product)
 

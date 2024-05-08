@@ -5,10 +5,7 @@ import androidx.room.PrimaryKey
 import androidx.room.ForeignKey
 import androidx.room.Index
 
-@Entity(
-    foreignKeys = [ForeignKey(entity = Day::class, parentColumns = ["date"], childColumns = ["dayId"], onDelete = ForeignKey.CASCADE)],
-    indices = [Index("dayId")]
-)
+@Entity
 data class Meal(
     @PrimaryKey val id: Int,
     val dayId: String,

@@ -33,6 +33,8 @@ FoodAddingViewModel @Inject constructor(
     private val _productsByName = MutableStateFlow<List<Product>>(emptyList())
     val productsByName: StateFlow<List<Product>> = _productsByName
 
+
+
     init {
         viewModelScope.launch {
             searchProducts()
@@ -54,6 +56,29 @@ FoodAddingViewModel @Inject constructor(
                 if (event.query.isNotEmpty()) {
                     searchProductsByName(event.query)
                 }
+            }
+
+            is FoodAddingEvent.OnProductClick -> {
+                if(_state.value.chosenProducts.contains(event.product)){
+                    _state.value = _state.value.copy(
+                        chosenProducts = mutableListOf<Product>().apply {
+                            addAll(_state.value.chosenProducts)
+                            remove(event.product)
+                        }
+                    )
+                }
+                else {
+                    _state.value = _state.value.copy(
+                        chosenProducts = mutableListOf<Product>().apply {
+                            addAll(_state.value.chosenProducts)
+                            add(event.product)
+                        }
+                    )
+                }
+            }
+
+            is FoodAddingEvent.OnChooseEating -> {
+                _state.value = _state.value.copy(eating = event.meal)
             }
         }
     }
