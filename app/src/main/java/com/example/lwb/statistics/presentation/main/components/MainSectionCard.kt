@@ -24,6 +24,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
@@ -31,10 +32,11 @@ fun MainSectionCard(
     title: String,
     description: String,
     imageId: Int,
-    onClick: () -> Unit
+    navController: NavController?,
+    destination: String
 ) {
     Card(
-        onClick =  onClick,
+        onClick =  { navController?.navigate(destination) },
         modifier = Modifier
             .height(200.dp)
             .padding(horizontal = 32.dp , vertical = 20.dp),

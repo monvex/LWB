@@ -27,12 +27,13 @@ import java.time.LocalDate
 import java.time.YearMonth
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.navigation.NavController
 import com.example.lwb.R
 import com.example.lwb.statistics.presentation.main.components.MainSectionCard
 
 @Composable
 fun MainScreen(
-    onNavigateFoodDiary: () -> Unit
+    navController: NavController
 ){
     Box(
         modifier = Modifier.padding(5.dp)
@@ -40,7 +41,7 @@ fun MainScreen(
 
         Column(){
             ShowCalendar()
-            MainSectionCard(title = "Питание", description = "", imageId = R.drawable.food, onNavigateFoodDiary)
+            MainSectionCard(title = "Питание", description = "", imageId = R.drawable.food, navController = navController, destination = "foodDiary")
         }
     }
 }
