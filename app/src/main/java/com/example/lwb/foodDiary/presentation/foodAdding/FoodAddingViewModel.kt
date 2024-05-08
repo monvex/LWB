@@ -9,6 +9,8 @@ import com.example.lwb.core.data.entities.Day
 import com.example.lwb.core.data.entities.Exercise
 import com.example.lwb.core.data.entities.Product
 import com.example.lwb.core.presentation.LWBViewModel
+import com.example.lwb.exerciseBase.presentation.exercisePage.ExercisePageEvent
+import com.example.lwb.exerciseBase.presentation.exercisePage.ExercisePageState
 import com.example.lwb.foodDiary.presentation.diary.components.FoodAlgoritms
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -22,8 +24,14 @@ class
 FoodAddingViewModel @Inject constructor(
     private val productDao: ProductDao,
 ): LWBViewModel() {
+    private val _state = MutableStateFlow(FoodAddingState())
+    val state: StateFlow<FoodAddingState> = _state
+
     private val _products = MutableStateFlow<List<Product>>(emptyList())
     val products: StateFlow<List<Product>> = _products
+
+    private val _productsByName = MutableStateFlow<List<Product>>(emptyList())
+    val productsByName: StateFlow<List<Product>> = _productsByName
 
     init {
         viewModelScope.launch {
@@ -31,7 +39,30 @@ FoodAddingViewModel @Inject constructor(
         }
     }
 
+    fun onEvent(event: FoodAddingEvent) {
+        viewModelScope.launch {
+            handleEvent(event)
+        }
+    }
+
+    private suspend fun handleEvent(event: FoodAddingEvent) {
+        when (event) {
+            is FoodAddingEvent.OnSearchQueryChange -> {
+                _state.value = _state.value.copy(
+                    searchQuery = event.query
+                )
+                if (event.query.isNotEmpty()) {
+                    searchProductsByName(event.query)
+                }
+            }
+        }
+    }
+
     private suspend fun searchProducts() {
         _products.value = productDao.getAll()
+    }
+
+    private suspend fun searchProductsByName(name: String) {
+        _productsByName.value = productDao.getByName("$name%")
     }
 }
