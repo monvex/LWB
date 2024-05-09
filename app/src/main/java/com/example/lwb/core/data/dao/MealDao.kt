@@ -8,11 +8,14 @@ import com.example.lwb.core.data.entities.Meal
 
 @Dao
 interface MealDao {
-    @Query("SELECT * FROM meal")
+    @Query("SELECT * FROM Meal")
     fun getAll(): List<Meal>
 
+    @Query("SELECT * from Meal WHERE date = :date")
+    suspend fun getByDate(date: String): List<Meal>
+
     @Insert
-    fun insert(meal: Meal)
+    suspend fun insert(meal: Meal)
 
     @Delete
     fun delete(meal: Meal)

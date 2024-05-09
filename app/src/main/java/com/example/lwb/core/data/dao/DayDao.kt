@@ -11,7 +11,7 @@ import com.example.lwb.core.data.entities.User
 @Dao
 interface DayDao {
     @Query("SELECT * FROM Day WHERE date = :today")
-    suspend fun getAll(today: String): List<Day>
+    suspend fun getByDate(today: String): List<Day>
 
     @Insert
     suspend fun insert(day: Day)

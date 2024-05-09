@@ -21,10 +21,20 @@ class FoodAlgoritms(){
     }
 
     fun calculateFats(user: User): Int{
-        return 22
+        val base = 6.25 * user.height + 10 * user.weight - 4.92 * user.age
+        return if (user.gender == "М"){
+            ((base + 5) * 0.2).toInt()
+        } else{
+            ((base - 161) * 0.2).toInt()
+        }
     }
 
-    fun calculateCarbohydrates(user: User): Int{
-        return 180
+    fun calculateCarbohydrates(user: User): Int {
+        val base = 6.25 * user.height + 10 * user.weight - 4.92 * user.age
+        return if (user.gender == "М") {
+            ((base + 5) * 0.5).toInt()
+        } else {
+            ((base - 161) * 0.5).toInt()
+        }
     }
 }

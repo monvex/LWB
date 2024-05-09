@@ -4,6 +4,6 @@ import com.example.lwb.core.data.entities.Product
 
 data class FoodAddingState(
     val searchQuery: String = "",
-    val chosenProducts: MutableList<Product> = mutableListOf(),
+    val chosenProducts: MutableMap<Product, Int> = mutableMapOf(),
     val eating: String = "Перекус"
 )

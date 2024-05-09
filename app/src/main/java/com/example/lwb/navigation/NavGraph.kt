@@ -114,7 +114,7 @@ fun NavGraph(
             ExercisePageScreen();
         }
         composable("foodAdding") {
-            FoodAddingScreen();
+            FoodAddingScreen(appState.navController);
         }
     }
 }

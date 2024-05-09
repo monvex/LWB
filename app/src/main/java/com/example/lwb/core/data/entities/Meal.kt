@@ -7,10 +7,9 @@ import androidx.room.Index
 
 @Entity
 data class Meal(
-    @PrimaryKey val id: Int,
-    val dayId: String,
+    @PrimaryKey val id: String,
+    val date: String,
     val type: String,
-    val name: String,
     val calories: Int,
     val proteins: Int,
     val fats: Int,

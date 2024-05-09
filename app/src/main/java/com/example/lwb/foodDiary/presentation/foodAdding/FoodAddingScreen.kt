@@ -35,13 +35,16 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.core.text.isDigitsOnly
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.ExperimentalGlideComposeApi
 import com.example.lwb.core.data.entities.Product
 import com.bumptech.glide.integration.compose.GlideImage
 
 @Composable
 fun FoodAddingScreen(
+    navController: NavController,
     viewModel: FoodAddingViewModel = hiltViewModel()
 ){
     val state by viewModel.state.collectAsState()
@@ -66,13 +69,13 @@ fun FoodAddingScreen(
             if (state.searchQuery.isEmpty()) {
                 LazyColumn {
                     items(products) { product ->
-                        ProductCard(product = product, viewModel)
+                        ProductCard(product = product, viewModel, state)
                     }
                 }
             } else {
                 LazyColumn {
                     items(productsByName) { productByName ->
-                        ProductCard(product = productByName, viewModel)
+                        ProductCard(product = productByName, viewModel, state)
                     }
                 }
             }
@@ -97,46 +100,60 @@ fun FoodAddingScreen(
             }
         }
     }
-    if (visible)
-    Box( modifier = Modifier
-        .fillMaxWidth()
-        .background(Color.White)
-    ){
-        val meals = listOf("Перекус", "Завтрак", "Обед", "Ужин")
-        val (selectedOption, onOptionSelected) = remember { mutableStateOf(meals[0]) }
-        Column {
-            Text(text = "Выберите прием пищи", fontSize = 28.sp, modifier = Modifier.padding(10.dp))
-            Column(Modifier.selectableGroup()) {
-                meals.forEach { text ->
-                    Row( modifier = Modifier
+    else {
+        Box(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.White)
+        ) {
+            val meals = listOf("Перекус", "Завтрак", "Обед", "Ужин")
+            val (selectedOption, onOptionSelected) = remember { mutableStateOf(meals[0]) }
+            Column {
+                Text(
+                    text = "Выберите прием пищи",
+                    fontSize = 28.sp,
+                    modifier = Modifier.padding(10.dp)
+                )
+                Column(Modifier.selectableGroup()) {
+                    meals.forEach { text ->
+                        Row(modifier = Modifier
                             .fillMaxWidth()
                             .height(100.dp)
                             .clickable {
                                 onOptionSelected(text)
                                 viewModel.onEvent(FoodAddingEvent.OnChooseEating(text))
-                                       }
+                            }
                             .border(
                                 width = 1.dp,
-                                color = if (text == selectedOption) Color.Black else Color.White)
+                                color = if (text == selectedOption) Color.Black else Color.White
+                            )
                             .background(if (text == selectedOption) Color.LightGray else Color.White),
-                         verticalAlignment = Alignment.CenterVertically
-                    )
-                    {
-                        Text( text = text, fontSize = 24.sp )
+                            verticalAlignment = Alignment.CenterVertically
+                        )
+                        {
+                            Text(text = text, fontSize = 24.sp)
+                        }
                     }
                 }
-            }
-            Row( modifier = Modifier
-                .fillMaxWidth()
-                .fillMaxHeight(0.95f),
-                verticalAlignment = Alignment.Bottom,
-                horizontalArrangement = Arrangement.Center
-            ){
-                Button(onClick = { },
-                    colors = ButtonDefaults.buttonColors(containerColor = Color.White, contentColor = Color.Black),
-                    border = BorderStroke(width = 1.dp, color = Color.Black)
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .fillMaxHeight(0.95f),
+                    verticalAlignment = Alignment.Bottom,
+                    horizontalArrangement = Arrangement.Center
                 ) {
-                    Text(text = "Сохранить")
+                    Button(
+                        onClick = { viewModel.onEvent(FoodAddingEvent.OnSaveEating(""))
+                                  navController.navigate("foodDiary")
+                                  },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = Color.White,
+                            contentColor = Color.Black
+                        ),
+                        border = BorderStroke(width = 1.dp, color = Color.Black)
+                    ) {
+                        Text(text = "Сохранить")
+                    }
                 }
             }
         }
@@ -145,37 +162,61 @@ fun FoodAddingScreen(
 
 @OptIn(ExperimentalGlideComposeApi::class)
 @Composable
-fun ProductCard(product: Product, viewModel: FoodAddingViewModel) {
-    Row(
+fun ProductCard(product: Product, viewModel: FoodAddingViewModel, state: FoodAddingState) {
+    var cardVisible by remember { mutableStateOf(false) }
+    Column(
         modifier = Modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable { viewModel.onEvent(FoodAddingEvent.OnProductClick(product)) }
+            .clickable { if (cardVisible){
+                viewModel.onEvent(FoodAddingEvent.OnProductDelete(product))
+            }
+                cardVisible = !cardVisible }
             .border(
                 width = 1.dp,
-                color = if (viewModel.state.value.chosenProducts.contains(product)) Color.Black else Color.White
+                color = if (cardVisible) Color.Black else Color.White
             ),
-        verticalAlignment = Alignment.CenterVertically
+        verticalArrangement = Arrangement.Center
     ) {
-        Column() {
-            GlideImage(
-                model = product.image,
-                contentDescription = "Product picture",
-                modifier = Modifier
-                    .size(60.dp)
-                    .clip(CircleShape)
-            )
-        }
-        Column() {
-            Row() {
-                Text(
-                    text = product.name,
-                    style = MaterialTheme.typography.titleMedium
+        Row() {
+            Column() {
+                GlideImage(
+                    model = product.image,
+                    contentDescription = "Product picture",
+                    modifier = Modifier
+                        .size(60.dp)
+                        .clip(CircleShape)
                 )
             }
-            Row(){
-                Text(
-                text = "${product.calories}ккал     Белки: ${product.proteins}г.  Жиры: ${product.fats}г.  Углеводы: ${product.carbohydrates}г."
+            Column() {
+                Row() {
+                    Text(
+                        text = product.name,
+                        style = MaterialTheme.typography.titleMedium
+                    )
+                }
+                Row() {
+                    Text(
+                        text = "${product.calories}ккал     Белки: ${product.proteins}г.  Жиры: ${product.fats}г.  Углеводы: ${product.carbohydrates}г."
+                    )
+                }
+            }
+        }
+        if (cardVisible) {
+            Row() {
+                OutlinedTextField(
+                    value = if (!state.chosenProducts.containsKey(product) or (state.chosenProducts[product] == 0)) "" else state.chosenProducts[product].toString(),
+                    onValueChange = {   if (it == ""){
+                                                    viewModel.onEvent(FoodAddingEvent.OnProductClick(product, 0))
+                                                }
+                                                else if (it.isDigitsOnly() and (it.length <= 5)){
+                                                     viewModel.onEvent(FoodAddingEvent.OnProductClick(product, it.toInt()))
+                                                }
+                                    },
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp),
+                    placeholder = { Text("Введите граммовку") }
                 )
             }
         }
