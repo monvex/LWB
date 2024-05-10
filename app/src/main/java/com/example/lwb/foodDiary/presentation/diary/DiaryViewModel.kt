@@ -15,6 +15,7 @@ import com.example.lwb.foodDiary.domain.model.Today
 import com.example.lwb.foodDiary.domain.repository.FoodDiaryRepository
 import com.example.lwb.foodDiary.presentation.diary.components.FoodAlgoritms
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
@@ -37,6 +38,7 @@ DiaryViewModel @Inject constructor(
 
     init {
         viewModelScope.launch{
+            delay(500)
             searchToday()
             getMeals()
         }

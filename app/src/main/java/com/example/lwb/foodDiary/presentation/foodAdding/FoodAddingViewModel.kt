@@ -15,6 +15,7 @@ import com.example.lwb.exerciseBase.presentation.exercisePage.ExercisePageEvent
 import com.example.lwb.exerciseBase.presentation.exercisePage.ExercisePageState
 import com.example.lwb.foodDiary.presentation.diary.components.FoodAlgoritms
 import dagger.hilt.android.lifecycle.HiltViewModel
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.launch
