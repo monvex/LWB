@@ -12,8 +12,10 @@ import androidx.compose.runtime.getValue
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavGraphBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import androidx.navigation.navigation
 import com.example.lwb.core.presentation.googleAuth.GoogleAuthUiClient
 import com.example.lwb.auth.presentation.signin.SignInScreen
 import com.example.lwb.auth.presentation.signin.SignInViewModel
@@ -24,6 +26,10 @@ import com.example.lwb.foodDiary.presentation.foodAdding.FoodAddingScreen
 import com.example.lwb.statistics.presentation.main.MainScreen
 import com.example.lwb.settings.presentation.SettingsScreen
 import com.example.lwb.knowledgeBase.presentation.knowledge_base_screen.KnowledgeBaseScreen
+import com.example.lwb.onboarding.presentation.components.OnBoardingAgeScreen
+import com.example.lwb.onboarding.presentation.components.OnBoardingHeightScreen
+import com.example.lwb.onboarding.presentation.components.OnBoardingSexScreen
+import com.example.lwb.onboarding.presentation.components.OnBoardingWeightScreen
 import com.google.android.gms.auth.api.identity.Identity
 import kotlinx.coroutines.launch
 
@@ -58,7 +64,8 @@ fun NavGraph(
                     ).show()
                     appState.navController.popBackStack()
                 }
-            })
+            },
+                onNavigateToOnboarding = {appState.navigate("onBoarding")})
         }
         composable("log_in") {
             val viewModel = viewModel<SignInViewModel>()
@@ -115,6 +122,40 @@ fun NavGraph(
         }
         composable("foodAdding") {
             FoodAddingScreen(appState.navController);
+        }
+        onBoardingGraph(appState)
+    }
+
+}
+fun NavGraphBuilder.onBoardingGraph(appState: LWBAppState) {
+    navigation("toOnBoardingSexScreen", "onBoarding") {
+        composable("toOnBoardingSexScreen") {
+            OnBoardingSexScreen(
+                onClickNext = {
+                    appState.navigate("toOnBoardingAgeScreen")
+                }
+            )
+        }
+        composable("toOnboardingAgeScreen") {
+            OnBoardingAgeScreen(
+                onClickNext = {
+                    appState.navigate("toOnBoardingHeightScreen")
+                }
+            )
+        }
+        composable("toOnboardingHeightScreen") {
+            OnBoardingHeightScreen(
+                onClickNext = {
+                    appState.navigate("toOnBoardingWeightScreen")
+                }
+            )
+        }
+        composable("toOnboardingWeightScreen") {
+            OnBoardingWeightScreen(
+                onClickSubmit = {
+                    appState.clearAndNavigate(BottomItem.Settings.route)
+                }
+            )
         }
     }
 }

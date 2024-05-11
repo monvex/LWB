@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.core.text.isDigitsOnly
@@ -28,7 +29,8 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @Composable
 fun SettingsScreen(
     onSignOut: () -> Unit,
-    viewModel: SettingsViewModel = hiltViewModel()
+    viewModel: SettingsViewModel = hiltViewModel(),
+    onNavigateToOnboarding: () -> Unit
 ){
     val user by viewModel.user
     Box(
@@ -242,11 +244,13 @@ fun SettingsScreen(
                         shape = RoundedCornerShape(25.dp)
                     )
                 }
+
             }
+
             Row(
                 modifier = Modifier
                     .fillMaxWidth()
-                    .padding(0.dp, 30.dp, 0.dp, 0.dp),
+                    .padding(0.dp , 30.dp , 0.dp , 0.dp),
                 horizontalArrangement = Arrangement.Center
             ){
                 Button(
@@ -261,5 +265,14 @@ fun SettingsScreen(
                 }
             }
         }
+        Button(onClick = onNavigateToOnboarding) {
+            Text(text = "OnBoarding")
+        }
     }
+}
+
+@Preview
+@Composable
+fun SettingsScreenPreview() {
+    SettingsScreen(onSignOut = {}, onNavigateToOnboarding = {})
 }

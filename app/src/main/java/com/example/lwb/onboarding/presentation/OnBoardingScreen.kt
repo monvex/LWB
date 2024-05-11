@@ -30,50 +30,8 @@ import com.example.lwb.auth.presentation.signin.SignInState
 
 @Composable
 fun OnBoardingScreen(
-    state: SignInState ,
-    onSignInClick: () -> Unit
 ) {
-    Box(
-        modifier = Modifier
-            .fillMaxSize()
-            .background(Color.Black)
-            .padding(10.dp, 100.dp),
-        contentAlignment = Alignment.TopCenter
-    ) {
-        Column(
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.Center
-        ) {
-            Row() {
-                Image(
-                    painter = painterResource(id = R.drawable.logo) ,
-                    contentDescription = "Logo",
-                    contentScale = ContentScale.FillWidth,
-                    modifier = Modifier
-                        .fillMaxWidth(0.6f)
-                )
-            }
-            Row(
-                modifier = Modifier.padding(5.dp, 100.dp, 5.dp, 5.dp)
-            ){
-                Text(
-                    text = "Чтобы продолжить, войдите\n с аккаунтом Google",
-                    color = Color.White,
-                    fontSize = 14.sp,
-                    textAlign = TextAlign.Center,
-                    lineHeight = 16.sp
-                )
-            }
-            Row(){
-                Button(
-                    onClick = onSignInClick,
-                    colors = ButtonColors(Color.White, Color.Black, Color.White, Color.White)
-                ) {
-                    Text(text = "Войти с Google")
-                }
-            }
-        }
-    }
+
 }
 
 @Preview

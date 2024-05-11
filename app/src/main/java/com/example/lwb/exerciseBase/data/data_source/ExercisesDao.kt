@@ -1,7 +1,7 @@
 package com.example.lwb.exerciseBase.data.data_source
 
 import androidx.room.Dao
-import com.example.lwb.core.data.entities.Exercise
+import com.example.lwb.exerciseBase.domain.model.Exercise
 import com.example.lwb.exerciseBase.domain.model.ExerciseDetail
 
 //todo: сюда нужно добавить аннотации для бд, чтобы это было привязано к ней

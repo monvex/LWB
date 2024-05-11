@@ -144,7 +144,11 @@ fun FoodAddingScreen(
                 ) {
                     Button(
                         onClick = { viewModel.onEvent(FoodAddingEvent.OnSaveEating(""))
-                                  navController.navigate("foodDiary")
+                                  navController.navigate("foodDiary"){
+                                      launchSingleTop = true
+                                      popUpTo("foodDiary") { inclusive = true }
+                                  }
+
                                   },
                         colors = ButtonDefaults.buttonColors(
                             containerColor = Color.White,
