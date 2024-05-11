@@ -1,5 +1,7 @@
-package com.example.lwb.onboarding.presentation.components
+package com.example.lwb.onboarding.presentation.screens
 
+import android.app.StatusBarManager
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -23,14 +25,18 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.lwb.R
+import com.example.lwb.core.presentation.snackbar.SnackbarManager
 import com.example.lwb.onboarding.presentation.OnboardingViewModel
+import com.example.lwb.onboarding.presentation.components.TextFieldWithTitleAbove
+import kotlinx.coroutines.launch
 
 
 @Composable
-fun OnBoardingWeightScreen(
+fun OnBoardingHeightScreen(
     viewModel: OnboardingViewModel = hiltViewModel() ,
-    onClickSubmit: () -> Unit
+    onClickNext: () -> Unit
 ) {
     Column(
         modifier = Modifier
@@ -54,14 +60,22 @@ fun OnBoardingWeightScreen(
                     .fillMaxWidth(0.6f)
             )
         }
-        Column(
+        Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .fillMaxHeight(0.6f),
-            verticalArrangement = Arrangement.SpaceEvenly
+                .fillMaxHeight(0.6f)
         ) {
-            TextFieldWithTitleAbove(title = "Введите свой вес" , onValueChange = {})
-            TextFieldWithTitleAbove(title = "Введите желаемый вес" , onValueChange = {})
+            TextFieldWithTitleAbove(
+                title = "Введите свой рост" ,
+                onValueChange = {
+                    if (it == "") {
+                        viewModel.onHeightChange(0)
+                    } else {
+                        viewModel.onHeightChange(it.toInt())
+                    }
+                },
+                text = viewModel.userData.value.age.toString()
+            )
         }
 
         Row(
@@ -72,11 +86,11 @@ fun OnBoardingWeightScreen(
             horizontalArrangement = Arrangement.Center
         ) {
             Button(
-                onClick = onClickSubmit ,
+                onClick = onClickNext ,
                 colors = ButtonColors(Color.White , Color.Black , Color.White , Color.White),
                 shape = RoundedCornerShape(5.dp)
             ) {
-                Text(text = "Yeah, buddy!" , fontSize = 20.sp)
+                Text(text = "Далее" , fontSize = 20.sp)
             }
         }
     }
@@ -86,7 +100,7 @@ fun OnBoardingWeightScreen(
 
 @Preview
 @Composable
-fun OnBoardingWeightScreenPreview() {
-    OnBoardingWeightScreen( onClickSubmit = {})
+fun OnBoardingHeightScreenPreview() {
+    OnBoardingHeightScreen( onClickNext = {})
 }
 

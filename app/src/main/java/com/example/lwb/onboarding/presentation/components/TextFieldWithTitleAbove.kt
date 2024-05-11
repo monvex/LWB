@@ -10,6 +10,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.State
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -18,9 +19,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.lwb.onboarding.presentation.OnBoardingState
 
 @Composable
-fun TextFieldWithTitleAbove(title: String, onValueChange: (String) -> Unit) {
+fun TextFieldWithTitleAbove(title: String, onValueChange: (String) -> Unit, text: String) {
     Column(
         modifier = Modifier
             .fillMaxWidth() ,
@@ -37,9 +39,9 @@ fun TextFieldWithTitleAbove(title: String, onValueChange: (String) -> Unit) {
                 .padding(bottom = 25.dp)
         )
         OutlinedTextField(
-            value = "",
+            value = text,
             onValueChange = onValueChange,
-            textStyle = TextStyle(fontSize = 70.sp) ,
+            textStyle = TextStyle(fontSize = 30.sp, color = Color.White) ,
             modifier = Modifier
                 .height(55.dp)
                 .fillMaxWidth(0.3f)

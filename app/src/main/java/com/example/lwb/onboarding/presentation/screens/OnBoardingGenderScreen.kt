@@ -1,5 +1,6 @@
-package com.example.lwb.onboarding.presentation.components
+package com.example.lwb.onboarding.presentation.screens
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -28,12 +29,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.example.lwb.R
-import com.example.lwb.onboarding.presentation.OnBoardingState
 import com.example.lwb.onboarding.presentation.OnboardingViewModel
 
 @Composable
-fun OnBoardingSexScreen(
-    viewModel: OnboardingViewModel = hiltViewModel(),
+fun OnBoardingGenderScreen(
+    viewModel: OnboardingViewModel = hiltViewModel() ,
     onClickNext: () -> Unit
 ) {
     Column(
@@ -47,7 +47,7 @@ fun OnBoardingSexScreen(
             modifier = Modifier
                 .fillMaxWidth()
                 .fillMaxHeight(0.4f)
-                .padding(bottom = 50.dp) ,
+                .padding(bottom = 50.dp),
             horizontalArrangement = Arrangement.Center
         ) {
             Image(
@@ -63,7 +63,15 @@ fun OnBoardingSexScreen(
                 .fillMaxWidth()
                 .fillMaxHeight(0.6f)
         ) {
-            FilterChipsWithTitleAbove(title = "Выберите свой пол" , onClickMale = {}, onClickFemale = {})
+            FilterChipsWithTitleAbove(
+                title = "Выберите свой пол" ,
+                onClickMale = {
+                    viewModel.onGenderChange("male")
+                } ,
+                onClickFemale = {
+                    viewModel.onGenderChange("female")
+                }
+            )
         }
 
         Row(
@@ -88,12 +96,12 @@ fun OnBoardingSexScreen(
 @Preview
 @Composable
 fun OnBoardingSexPreview() {
-    OnBoardingSexScreen(onClickNext = {})
+    OnBoardingGenderScreen(onClickNext = {})
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun FilterChipsWithTitleAbove(title: String, onClickMale: (String) -> Unit, onClickFemale: () -> Unit) {
+fun FilterChipsWithTitleAbove(title: String, onClickMale: () -> Unit, onClickFemale: () -> Unit) {
     Column(
         modifier = Modifier
             .fillMaxWidth() ,
@@ -130,7 +138,7 @@ fun FilterChipsWithTitleAbove(title: String, onClickMale: (String) -> Unit, onCl
                     selectedTrailingIconColor = Color.Black
                 ) ,
                 selected = false,
-                onClick = { onClickMale },
+                onClick = onClickMale,
                 label = { Text("Мужской") }
             )
             androidx.compose.material3.FilterChip(
@@ -148,7 +156,7 @@ fun FilterChipsWithTitleAbove(title: String, onClickMale: (String) -> Unit, onCl
                     selectedLeadingIconColor = Color.Black,
                     selectedTrailingIconColor = Color.Black),
                 selected = false,
-                onClick = { onClickFemale } ,
+                onClick = onClickFemale,
                 label = { Text("Женский") }
             )
         }
