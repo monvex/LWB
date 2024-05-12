@@ -28,10 +28,11 @@ import com.example.lwb.foodDiary.presentation.foodAdding.FoodAddingScreen
 import com.example.lwb.statistics.presentation.main.MainScreen
 import com.example.lwb.settings.presentation.SettingsScreen
 import com.example.lwb.knowledgeBase.presentation.knowledge_base_screen.KnowledgeBaseScreen
-import com.example.lwb.onboarding.presentation.components.OnBoardingAgeScreen
-import com.example.lwb.onboarding.presentation.components.OnBoardingHeightScreen
-import com.example.lwb.onboarding.presentation.components.OnBoardingSexScreen
-import com.example.lwb.onboarding.presentation.components.OnBoardingWeightScreen
+import com.example.lwb.onboarding.presentation.OnboardingViewModel
+import com.example.lwb.onboarding.presentation.screens.OnBoardingAgeScreen
+import com.example.lwb.onboarding.presentation.screens.OnBoardingHeightScreen
+import com.example.lwb.onboarding.presentation.screens.OnBoardingGenderScreen
+import com.example.lwb.onboarding.presentation.screens.OnBoardingWeightScreen
 import com.google.android.gms.auth.api.identity.Identity
 import kotlinx.coroutines.launch
 
@@ -144,7 +145,7 @@ fun NavGraph(
 fun NavGraphBuilder.onBoardingGraph(appState: LWBAppState) {
     navigation("toOnBoardingSexScreen", "onBoarding") {
         composable("toOnBoardingSexScreen") {
-            OnBoardingSexScreen(
+            OnBoardingGenderScreen(
                 onClickNext = {
                     appState.navigate("toOnBoardingAgeScreen")
                 }
@@ -165,8 +166,10 @@ fun NavGraphBuilder.onBoardingGraph(appState: LWBAppState) {
             )
         }
         composable("toOnboardingWeightScreen") {
+            val viewModel = viewModel<OnboardingViewModel>()
             OnBoardingWeightScreen(
                 onClickSubmit = {
+                    viewModel.showToast(viewModel.userData.value.weight.toString())
                     appState.clearAndNavigate(BottomItem.Settings.route)
                 }
             )
