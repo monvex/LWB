@@ -124,7 +124,11 @@ dependencies {
     // separate artifact with utilities for working with kotlinx-datetime
     implementation("io.github.boguszpawlowski.composecalendar:kotlinx-datetime:1.2.0")
 
-    implementation("androidx.graphics:graphics-shapes:1.0.0-alpha05")
+    implementation("androidx.graphics:graphics-shapes:1.0.0-beta01")
 
     implementation("com.github.bumptech.glide:compose:1.0.0-beta01")
+
+    implementation("io.coil-kt:coil-compose:2.6.0")
+
+    implementation("com.google.android.material:material:1.12.0")
 }

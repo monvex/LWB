@@ -20,6 +20,8 @@ import com.example.lwb.core.presentation.googleAuth.GoogleAuthUiClient
 import com.example.lwb.auth.presentation.signin.SignInScreen
 import com.example.lwb.auth.presentation.signin.SignInViewModel
 import com.example.lwb.LWBAppState
+import com.example.lwb.exerciseBase.presentation.exerciseDetails.ExerciseDetailsScreen
+import com.example.lwb.exerciseBase.presentation.exerciseList.ExerciseListScreen
 import com.example.lwb.exerciseBase.presentation.exercisePage.ExercisePageScreen
 import com.example.lwb.foodDiary.presentation.diary.DiaryScreen
 import com.example.lwb.foodDiary.presentation.foodAdding.FoodAddingScreen
@@ -118,10 +120,22 @@ fun NavGraph(
             DiaryScreen(appState.navController)
         }
         composable("exercisePage") {
-            ExercisePageScreen();
+            ExercisePageScreen(appState = appState);
         }
         composable("foodAdding") {
             FoodAddingScreen(appState.navController);
+        }
+        composable("exerciseList/{muscleGroup}") { backStackEntry ->
+            val muscleGroup = backStackEntry.arguments?.getString("muscleGroup")
+            if (muscleGroup != null) {
+                ExerciseListScreen(muscleGroup = muscleGroup, navController = appState.navController)
+            }
+        }
+        composable("exerciseDetails/{exerciseId}") { backStackEntry ->
+            val exerciseId = backStackEntry.arguments?.getString("exerciseId")?.toIntOrNull()
+            if (exerciseId != null) {
+                ExerciseDetailsScreen(exerciseId = exerciseId, navController = appState.navController)
+            }
         }
         onBoardingGraph(appState)
     }

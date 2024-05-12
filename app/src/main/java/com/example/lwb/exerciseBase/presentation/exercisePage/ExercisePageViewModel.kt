@@ -11,20 +11,19 @@ import kotlinx.coroutines.flow.StateFlow
 import javax.inject.Inject
 
 @HiltViewModel
-class
-ExercisePageViewModel @Inject constructor(
+class ExercisePageViewModel @Inject constructor(
     private val exerciseDao: ExerciseDao
 ) : ViewModel() {
 
     private val _state = MutableStateFlow(ExercisePageState())
     val state: StateFlow<ExercisePageState> = _state
 
-    private val muscleGroups = listOf("Плечи", "Ноги", "Спина", "Грудь", "Пресс", "Руки", "Пиво")
-
     init {
-        _state.value = _state.value.copy(
-            muscleGroups = muscleGroups
-        )
+        viewModelScope.launch {
+            _state.value = _state.value.copy(
+                muscleGroups = exerciseDao.getAllMuscleGroups()
+            )
+        }
     }
 
     private val _searchResults = MutableStateFlow<List<Exercise>>(emptyList())
@@ -43,17 +42,13 @@ ExercisePageViewModel @Inject constructor(
                     searchQuery = event.query
                 )
                 if (event.query.isNotEmpty()) {
-                    searchExercises()
+                    searchExercises(event.query)
                 }
-            }
-
-            is ExercisePageEvent.OnMuscleGroupClick -> {
-                // TODO: Navigate to ExerciseListScreen with muscleGroup
             }
         }
     }
 
-    private suspend fun searchExercises() {
-        _searchResults.value = exerciseDao.getAll()
+    private suspend fun searchExercises(query: String) {
+        _searchResults.value = exerciseDao.findByName(query)
     }
 }

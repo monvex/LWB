@@ -11,6 +11,6 @@ data class Exercise(
     val name: String?,
     val muscleGroup: String?,
     val description: String?,
-    val imageFirst: String?,  // Изменено на String
-    val imageSecond: String?  // Изменено на String
+    val imageFirst: String?,
+    val imageSecond: String?
 )
