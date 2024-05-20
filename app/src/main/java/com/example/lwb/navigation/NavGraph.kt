@@ -20,6 +20,7 @@ import com.example.lwb.core.presentation.googleAuth.GoogleAuthUiClient
 import com.example.lwb.auth.presentation.signin.SignInScreen
 import com.example.lwb.auth.presentation.signin.SignInViewModel
 import com.example.lwb.LWBAppState
+import com.example.lwb.core.data.dao.UserDao
 import com.example.lwb.exerciseBase.presentation.exerciseDetails.ExerciseDetailsScreen
 import com.example.lwb.exerciseBase.presentation.exerciseList.ExerciseListScreen
 import com.example.lwb.exerciseBase.presentation.exercisePage.ExercisePageScreen
@@ -67,8 +68,7 @@ fun NavGraph(
                     ).show()
                     appState.navController.popBackStack()
                 }
-            },
-                onNavigateToOnboarding = {appState.navigate("onBoarding")})
+            },)
         }
         composable("log_in") {
             val viewModel = viewModel<SignInViewModel>()

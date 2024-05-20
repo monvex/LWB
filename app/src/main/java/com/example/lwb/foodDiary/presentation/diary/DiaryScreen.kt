@@ -1,5 +1,6 @@
 package com.example.lwb.foodDiary.presentation.diary
 
+import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -20,6 +21,8 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.CircularProgressIndicator
 import androidx.compose.material.Divider
 import androidx.compose.material.LinearProgressIndicator
@@ -57,6 +60,7 @@ import androidx.navigation.NavController
 import com.bumptech.glide.integration.compose.GlideImage
 import com.example.lwb.R
 import com.example.lwb.foodDiary.presentation.foodAdding.ProductCard
+import com.example.lwb.navigation.BottomItem
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -356,7 +360,7 @@ fun DiaryScreen(
                         color = Color.LightGray, thickness = 1.dp
                     )
                 }
-                LazyColumn {
+                LazyColumn( modifier = Modifier.fillMaxHeight(0.8f) ) {
                     items(meals) { meal ->
                         MealCard(meal[0], meal[1])
                     }
@@ -365,13 +369,30 @@ fun DiaryScreen(
         }
             Box( modifier = Modifier
                 .fillMaxSize()
-                .padding(5.dp),
+                .padding(15.dp),
                 contentAlignment = Alignment.BottomCenter
             ){
-                Image(painter = painterResource(id = R.drawable.plus), contentDescription = null,
-                    modifier = Modifier
-                        .size(100.dp)
-                        .clickable { navController?.navigate("foodAdding") })
+                Column( horizontalAlignment = Alignment.CenterHorizontally ) {
+                    Row() {
+                        Image(painter = painterResource(id = R.drawable.plus),
+                            contentDescription = null,
+                            modifier = Modifier
+                                .size(100.dp)
+                                .clickable { navController.navigate("foodAdding") })
+                    }
+                    Row(){
+                        Button(
+                            onClick = { navController.navigate(BottomItem.MainPage.route) },
+                            colors = ButtonDefaults.buttonColors(
+                                backgroundColor = Color.White,
+                                contentColor = Color.Black
+                            ),
+                            border = BorderStroke(width = 1.dp, color = Color.Black)
+                        ) {
+                            Text(text = "Назад")
+                        }
+                    }
+                }
             }
             if(visible) {
                 Box(

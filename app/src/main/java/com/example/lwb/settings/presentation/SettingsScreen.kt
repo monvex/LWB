@@ -29,8 +29,7 @@ import androidx.hilt.navigation.compose.hiltViewModel
 @Composable
 fun SettingsScreen(
     onSignOut: () -> Unit,
-    viewModel: SettingsViewModel = hiltViewModel(),
-    onNavigateToOnboarding: () -> Unit
+    viewModel: SettingsViewModel = hiltViewModel()
 ){
     val user by viewModel.user
     Box(
@@ -265,14 +264,5 @@ fun SettingsScreen(
                 }
             }
         }
-        Button(onClick = onNavigateToOnboarding) {
-            Text(text = "OnBoarding")
-        }
     }
-}
-
-@Preview
-@Composable
-fun SettingsScreenPreview() {
-    SettingsScreen(onSignOut = {}, onNavigateToOnboarding = {})
 }

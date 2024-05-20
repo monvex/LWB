@@ -38,8 +38,8 @@ fun MainSectionCard(
     Card(
         onClick =  { navController?.navigate(destination) },
         modifier = Modifier
-            .height(200.dp)
-            .padding(horizontal = 32.dp , vertical = 20.dp),
+            .height(150.dp)
+            .padding(horizontal = 20.dp , vertical = 10.dp),
         shape = RoundedCornerShape(15.dp),
         border = BorderStroke(2.dp, Color.Black)
     ) {

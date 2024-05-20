@@ -1,15 +1,19 @@
 package com.example.lwb.statistics.presentation.main
 
+import co.yml.charts.common.model.Point
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.Saver
@@ -27,30 +31,101 @@ import java.time.LocalDate
 import java.time.YearMonth
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import co.yml.charts.axis.AxisData
+import co.yml.charts.ui.linechart.LineChart
+import co.yml.charts.ui.linechart.model.GridLines
+import co.yml.charts.ui.linechart.model.IntersectionPoint
+import co.yml.charts.ui.linechart.model.Line
+import co.yml.charts.ui.linechart.model.LineChartData
+import co.yml.charts.ui.linechart.model.LinePlotData
+import co.yml.charts.ui.linechart.model.LineStyle
+import co.yml.charts.ui.linechart.model.SelectionHighlightPoint
+import co.yml.charts.ui.linechart.model.SelectionHighlightPopUp
+import co.yml.charts.ui.linechart.model.ShadowUnderLine
 import com.example.lwb.R
+import com.example.lwb.core.data.entities.Day
 import com.example.lwb.statistics.presentation.main.components.MainSectionCard
 
 @Composable
 fun MainScreen(
-    navController: NavController
+    navController: NavController,
+    viewModel: MainViewModel = hiltViewModel()
 ){
+    val days by viewModel.days.collectAsState()
+    val image by viewModel.image.collectAsState()
+    val description by viewModel.description.collectAsState()
     Box(
-        modifier = Modifier.padding(5.dp)
+        modifier = Modifier.padding(5.dp),
+        contentAlignment = Alignment.TopCenter
     ) {
 
-        Column(){
+        Column {
             ShowCalendar()
-            MainSectionCard(title = "Питание", description = "", imageId = R.drawable.food, navController = navController, destination = "foodDiary")
+            MainSectionCard(title = "Питание", description = description, imageId = image, navController = navController, destination = "foodDiary")
+            if (days.isNotEmpty()) ShowGraphic(days = days)
         }
     }
 }
 
 @Composable
+fun ShowGraphic(days: List<Day>) {
+    var pointsData: MutableList<Point> = mutableListOf()
+    for (i in days.indices) {
+        pointsData.add(Point(days[i].date.substring(0, 2).toFloat(), days[i].weight.toFloat()))
+    }
+
+    val xAxisData = AxisData.Builder()
+        .axisStepSize(100.dp)
+        .backgroundColor(Color.White)
+        .steps(pointsData.size - 1)
+        .labelData { i -> i.toString() }
+        .labelAndAxisLinePadding(15.dp)
+        .build()
+
+    val yAxisData = AxisData.Builder()
+        .steps(10)
+        .backgroundColor(Color.White)
+        .labelAndAxisLinePadding(20.dp)
+        .labelData { i ->
+            val yScale = 10
+            (i * yScale).toString()
+        }.build()
+    val lineChartData = LineChartData(
+        linePlotData = LinePlotData(
+            lines = listOf(
+                Line(
+                    dataPoints = pointsData,
+                    LineStyle(),
+                    IntersectionPoint(),
+                    SelectionHighlightPoint(),
+                    ShadowUnderLine(),
+                    SelectionHighlightPopUp()
+                )
+            ),
+        ),
+        xAxisData = xAxisData,
+        yAxisData = yAxisData,
+        gridLines = GridLines(),
+        backgroundColor = Color.White
+    )
+    LineChart(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(250.dp),
+        lineChartData = lineChartData
+    )
+}
+
+
+@Composable
 fun ShowCalendar() {
     Calendar(
         calendarState = rememberMonthSelectionState(),
-        modifier = Modifier.border(1.dp, Color.Black, RoundedCornerShape(15.dp))
+        modifier = Modifier
+            .border(1.dp, Color.Black, RoundedCornerShape(15.dp))
     )
 }
 

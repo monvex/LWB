@@ -131,4 +131,6 @@ dependencies {
     implementation("io.coil-kt:coil-compose:2.6.0")
 
     implementation("com.google.android.material:material:1.12.0")
+
+    implementation("co.yml:ycharts:2.1.0")
 }

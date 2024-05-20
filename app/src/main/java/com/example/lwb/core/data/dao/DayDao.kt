@@ -13,6 +13,7 @@ interface DayDao {
     @Query("SELECT * FROM Day WHERE date = :today")
     suspend fun getByDate(today: String): List<Day>
 
+
     @Insert
     suspend fun insert(day: Day)
 
