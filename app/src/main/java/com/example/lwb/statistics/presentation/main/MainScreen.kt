@@ -45,6 +45,7 @@ import co.yml.charts.ui.linechart.model.LineStyle
 import co.yml.charts.ui.linechart.model.SelectionHighlightPoint
 import co.yml.charts.ui.linechart.model.SelectionHighlightPopUp
 import co.yml.charts.ui.linechart.model.ShadowUnderLine
+import co.yml.charts.common.extensions.formatToSinglePrecision
 import com.example.lwb.R
 import com.example.lwb.core.data.entities.Day
 import com.example.lwb.statistics.presentation.main.components.MainSectionCard
@@ -81,7 +82,7 @@ fun ShowGraphic(days: List<Day>) {
         .axisStepSize(100.dp)
         .backgroundColor(Color.White)
         .steps(pointsData.size - 1)
-        .labelData { i -> i.toString() }
+        .labelData { i -> i.toString()  }
         .labelAndAxisLinePadding(15.dp)
         .build()
 
@@ -90,8 +91,10 @@ fun ShowGraphic(days: List<Day>) {
         .backgroundColor(Color.White)
         .labelAndAxisLinePadding(20.dp)
         .labelData { i ->
-            val yScale = 10
-            (i * yScale).toString()
+            val yMin = pointsData.minOf { it.y }
+            val yMax = pointsData.maxOf { it.y }
+            val yScale = (yMax - yMin) / 10
+            ((i * yScale) + yMin).formatToSinglePrecision()
         }.build()
     val lineChartData = LineChartData(
         linePlotData = LinePlotData(

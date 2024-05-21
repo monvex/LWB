@@ -33,6 +33,8 @@ import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
+import com.example.lwb.core.data.dao.DayDao
+import com.example.lwb.core.data.dao.UserDao
 import com.example.lwb.core.presentation.snackbar.SnackbarManager
 import com.example.lwb.navigation.BottomItem
 import com.example.lwb.navigation.BottomNavigation
@@ -45,7 +47,8 @@ import kotlinx.coroutines.CoroutineScope
 @ExperimentalMaterialApi
 fun LWBApp(
     context: Context,
-    scope: LifecycleCoroutineScope
+    scope: LifecycleCoroutineScope,
+    userDao: UserDao
 ){
     LWBTheme {
         val listItems = listOf(
@@ -91,7 +94,7 @@ fun LWBApp(
                 },
                 scaffoldState = appState.scaffoldState
             ) {
-                NavGraph(appState, context, scope)
+                NavGraph(appState, context, scope, userDao)
             }
         }
 

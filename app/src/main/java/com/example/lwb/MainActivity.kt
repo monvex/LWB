@@ -11,6 +11,8 @@ import androidx.core.view.WindowInsetsCompat
 import androidx.core.view.WindowInsetsControllerCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.lwb.core.data.LWBDatabase
+import com.example.lwb.core.data.dao.DayDao
+import com.example.lwb.core.data.dao.UserDao
 import dagger.hilt.android.AndroidEntryPoint
 import javax.inject.Inject
 
@@ -18,6 +20,9 @@ import javax.inject.Inject
 class MainActivity : AppCompatActivity() {
     @Inject
     lateinit var database: LWBDatabase
+
+    @Inject
+    lateinit var userDao: UserDao
 
     @OptIn(ExperimentalMaterialApi::class)
     @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -43,6 +48,6 @@ class MainActivity : AppCompatActivity() {
 //        }
 
 
-        setContent { LWBApp(applicationContext, lifecycleScope) }
+        setContent { LWBApp(applicationContext, lifecycleScope, userDao) }
     }
 }

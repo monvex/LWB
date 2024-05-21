@@ -9,6 +9,7 @@ import com.example.lwb.core.data.entities.Product
 import com.example.lwb.core.presentation.LWBViewModel
 import com.example.lwb.foodDiary.presentation.diary.components.FoodAlgoritms
 import com.example.lwb.statistics.presentation.main.components.StatisticAlgoritms
+import com.google.android.gms.tasks.Tasks.await
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -46,7 +47,7 @@ class MainViewModel @Inject constructor(
         val searchResult = dayDao.getByDate("${day+10}-$month-$year")
         if (searchResult.isEmpty()){
             val user = userDao.getAll()[0]
-            val today = Day("$day-$month-$year", user.weight, 0, 0, 0, 0, 0, foodAlgoritms.calculateWater(user), foodAlgoritms.calculateCalories(user), foodAlgoritms.calculateProteins(user), foodAlgoritms.calculateFats(user), foodAlgoritms.calculateCarbohydrates(user))
+            val today = Day("${day+10}-$month-$year", user.weight, 0, 0, 0, 0, 0, foodAlgoritms.calculateWater(user), foodAlgoritms.calculateCalories(user), foodAlgoritms.calculateProteins(user), foodAlgoritms.calculateFats(user), foodAlgoritms.calculateCarbohydrates(user))
             dayDao.insert(today)
         }
         for (i in 0..10){

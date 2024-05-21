@@ -13,7 +13,7 @@ interface UserDao {
     suspend fun getAll(): List<User>
 
     @Insert
-    fun insert(user: User)
+    suspend fun insert(user: User)
     @Update
     suspend fun update(vararg user: User)
 

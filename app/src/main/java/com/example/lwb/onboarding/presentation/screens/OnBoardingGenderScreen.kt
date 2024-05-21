@@ -11,6 +11,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
@@ -28,8 +29,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.ViewModel
 import com.example.lwb.R
 import com.example.lwb.onboarding.presentation.OnboardingViewModel
+import com.example.lwb.settings.presentation.SettingsViewModel
 
 @Composable
 fun OnBoardingGenderScreen(
@@ -66,11 +69,12 @@ fun OnBoardingGenderScreen(
             FilterChipsWithTitleAbove(
                 title = "Выберите свой пол" ,
                 onClickMale = {
-                    viewModel.onGenderChange("male")
+                    viewModel.onGenderChange("М")
                 } ,
                 onClickFemale = {
-                    viewModel.onGenderChange("female")
-                }
+                    viewModel.onGenderChange("Ж")
+                },
+                viewModel
             )
         }
 
@@ -92,27 +96,20 @@ fun OnBoardingGenderScreen(
     }
 }
 
-
-@Preview
-@Composable
-fun OnBoardingSexPreview() {
-    OnBoardingGenderScreen(onClickNext = {})
-}
-
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun FilterChipsWithTitleAbove(title: String, onClickMale: () -> Unit, onClickFemale: () -> Unit) {
+fun FilterChipsWithTitleAbove(title: String, onClickMale: () -> Unit, onClickFemale: () -> Unit, viewModel: OnboardingViewModel) {
     Column(
         modifier = Modifier
             .fillMaxWidth() ,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = title ,
-            color = Color.White ,
-            fontSize = 24.sp ,
-            textAlign = TextAlign.Center ,
-            lineHeight = 16.sp ,
+            text = title,
+            color = Color.White,
+            fontSize = 24.sp,
+            textAlign = TextAlign.Center,
+            lineHeight = 16.sp,
             fontWeight = FontWeight.Bold,
             modifier = Modifier
                 .padding(bottom = 25.dp)
@@ -122,43 +119,24 @@ fun FilterChipsWithTitleAbove(title: String, onClickMale: () -> Unit, onClickFem
                 .fillMaxWidth(),
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
-            androidx.compose.material3.FilterChip(
-                colors = SelectableChipColors(containerColor = Color.Gray ,
-                    labelColor = Color.DarkGray,
-                    leadingIconColor = Color.Black,
-                    trailingIconColor = Color.Black,
-                    disabledContainerColor = Color.Gray,
-                    disabledLabelColor = Color.DarkGray,
-                    disabledLeadingIconColor = Color.Black,
-                    disabledTrailingIconColor = Color.Black,
-                    selectedContainerColor = Color.White,
-                    disabledSelectedContainerColor = Color.DarkGray,
-                    selectedLabelColor = Color.Black,
-                    selectedLeadingIconColor = Color.Black,
-                    selectedTrailingIconColor = Color.Black
-                ) ,
-                selected = false,
-                onClick = onClickMale,
-                label = { Text("Мужской") }
-            )
-            androidx.compose.material3.FilterChip(
-                colors = SelectableChipColors(containerColor = Color.Gray ,
-                    labelColor = Color.DarkGray,
-                    leadingIconColor = Color.Black,
-                    trailingIconColor = Color.Black,
-                    disabledContainerColor = Color.Gray,
-                    disabledLabelColor = Color.DarkGray,
-                    disabledLeadingIconColor = Color.Black,
-                    disabledTrailingIconColor = Color.Black,
-                    selectedContainerColor = Color.White,
-                    disabledSelectedContainerColor = Color.DarkGray,
-                    selectedLabelColor = Color.Black,
-                    selectedLeadingIconColor = Color.Black,
-                    selectedTrailingIconColor = Color.Black),
-                selected = false,
-                onClick = onClickFemale,
-                label = { Text("Женский") }
-            )
+            Column() {
+                androidx.compose.material.Button(
+                    onClick = { viewModel.onGenderChange("М") },
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
+                    enabled = viewModel.userData.value.gender == "Ж"
+                ) {
+                    androidx.compose.material.Text(text = "М")
+                }
+            }
+            Column() {
+                androidx.compose.material.Button(
+                    onClick = { viewModel.onGenderChange("Ж") },
+                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.White),
+                    enabled = viewModel.userData.value.gender == "М"
+                ) {
+                    androidx.compose.material.Text(text = "Ж")
+                }
+            }
         }
     }
 }

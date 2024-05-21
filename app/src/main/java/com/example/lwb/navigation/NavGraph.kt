@@ -20,7 +20,9 @@ import com.example.lwb.core.presentation.googleAuth.GoogleAuthUiClient
 import com.example.lwb.auth.presentation.signin.SignInScreen
 import com.example.lwb.auth.presentation.signin.SignInViewModel
 import com.example.lwb.LWBAppState
+import com.example.lwb.core.data.dao.DayDao
 import com.example.lwb.core.data.dao.UserDao
+import com.example.lwb.core.data.entities.User
 import com.example.lwb.exerciseBase.presentation.exerciseDetails.ExerciseDetailsScreen
 import com.example.lwb.exerciseBase.presentation.exerciseList.ExerciseListScreen
 import com.example.lwb.exerciseBase.presentation.exercisePage.ExercisePageScreen
@@ -36,12 +38,15 @@ import com.example.lwb.onboarding.presentation.screens.OnBoardingGenderScreen
 import com.example.lwb.onboarding.presentation.screens.OnBoardingWeightScreen
 import com.google.android.gms.auth.api.identity.Identity
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
 @Composable
 fun NavGraph(
     appState: LWBAppState,
     context: Context,
-    scope: LifecycleCoroutineScope
+    scope: LifecycleCoroutineScope,
+    userDao: UserDao
 ) {
     val googleAuthUiClient by lazy {
         GoogleAuthUiClient(
@@ -49,7 +54,9 @@ fun NavGraph(
             oneTapClient = Identity.getSignInClient(context)
         )
     }
-    NavHost(navController = appState.navController, startDestination = BottomItem.MainPage.route) {
+    var user: List<User>
+
+    NavHost(navController = appState.navController, startDestination = "log_in") {
         composable(BottomItem.MainPage.route) {
             MainScreen (appState.navController)
         }
@@ -73,49 +80,16 @@ fun NavGraph(
         composable("log_in") {
             val viewModel = viewModel<SignInViewModel>()
             val state by viewModel.state.collectAsStateWithLifecycle()
-
-            LaunchedEffect(key1 = Unit) {
-                if(googleAuthUiClient.getSignedInUser() != null) {
-                    appState.navigate(BottomItem.MainPage.route)
-                }
+            runBlocking {
+                user = userDao.getAll()
             }
 
-            val launcher = rememberLauncherForActivityResult(
-                contract = ActivityResultContracts.StartIntentSenderForResult(),
-                onResult = {result ->
-                    if(result.resultCode == RESULT_OK) {
-                        scope.launch {
-                            val signInResult = googleAuthUiClient.signInWithIntent(
-                                intent = result.data ?: return@launch
-                            )
-                            viewModel.onSignInResult(signInResult)
-                        }
-                    }
-                }
-            )
-
-            LaunchedEffect(key1 = state.isSignInSuccessful) {
-                if(state.isSignInSuccessful) {
-                    Toast.makeText(
-                        context,
-                        "Успех успешный",
-                        Toast.LENGTH_LONG
-                    ).show()
-                    appState.navigate(BottomItem.MainPage.route)
-                    viewModel.resetState()
-                }
+            if(user.isNotEmpty()) {
+                appState.navigate(BottomItem.MainPage.route)
             }
-
-            SignInScreen(state = state, onSignInClick = {
-                scope.launch {
-                    val signInIntentSender = googleAuthUiClient.signIn()
-                    launcher.launch(
-                        IntentSenderRequest.Builder(
-                            signInIntentSender ?: return@launch
-                        ).build()
-                    )
-                }
-            })
+            else {
+                appState.navigate("onBoarding")
+            }
         }
         composable("foodDiary") {
             DiaryScreen(appState.navController)
@@ -166,12 +140,8 @@ fun NavGraphBuilder.onBoardingGraph(appState: LWBAppState) {
             )
         }
         composable("toOnboardingWeightScreen") {
-            val viewModel = viewModel<OnboardingViewModel>()
             OnBoardingWeightScreen(
-                onClickSubmit = {
-                    viewModel.showToast(viewModel.userData.value.weight.toString())
-                    appState.clearAndNavigate(BottomItem.Settings.route)
-                }
+                onClickSubmit = { appState.navigate(BottomItem.MainPage.route) }
             )
         }
     }
