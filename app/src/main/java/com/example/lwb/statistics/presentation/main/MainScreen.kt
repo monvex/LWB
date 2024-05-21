@@ -142,10 +142,7 @@ private class MonthSelectionState(
         selection?.contains(date) == true
 
     override fun onDateSelected(date: LocalDate) {
-        if (selection?.contains(date) == true)
-            selection?.remove(date)
-        else
-            selection?.add(date)
+
     }
 
     companion object {

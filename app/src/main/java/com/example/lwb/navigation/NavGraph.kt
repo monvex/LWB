@@ -9,6 +9,7 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.LifecycleCoroutineScope
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.lifecycle.viewmodel.compose.viewModel
@@ -46,7 +47,8 @@ fun NavGraph(
     appState: LWBAppState,
     context: Context,
     scope: LifecycleCoroutineScope,
-    userDao: UserDao
+    userDao: UserDao,
+    onboardingViewModel: OnboardingViewModel = hiltViewModel()
 ) {
     val googleAuthUiClient by lazy {
         GoogleAuthUiClient(
@@ -112,36 +114,40 @@ fun NavGraph(
                 ExerciseDetailsScreen(exerciseId = exerciseId, navController = appState.navController)
             }
         }
-        onBoardingGraph(appState)
+        onBoardingGraph(appState, onboardingViewModel)
     }
 
 }
-fun NavGraphBuilder.onBoardingGraph(appState: LWBAppState) {
+fun NavGraphBuilder.onBoardingGraph(appState: LWBAppState, viewModel: OnboardingViewModel) {
     navigation("toOnBoardingSexScreen", "onBoarding") {
         composable("toOnBoardingSexScreen") {
             OnBoardingGenderScreen(
                 onClickNext = {
                     appState.navigate("toOnBoardingAgeScreen")
-                }
+                },
+                viewModel = viewModel
             )
         }
         composable("toOnboardingAgeScreen") {
             OnBoardingAgeScreen(
                 onClickNext = {
                     appState.navigate("toOnBoardingHeightScreen")
-                }
+                },
+                viewModel = viewModel
             )
         }
         composable("toOnboardingHeightScreen") {
             OnBoardingHeightScreen(
                 onClickNext = {
                     appState.navigate("toOnBoardingWeightScreen")
-                }
+                },
+                viewModel = viewModel
             )
         }
         composable("toOnboardingWeightScreen") {
             OnBoardingWeightScreen(
-                onClickSubmit = { appState.navigate(BottomItem.MainPage.route) }
+                onClickSubmit = { appState.navigate(BottomItem.MainPage.route) },
+                viewModel = viewModel
             )
         }
     }
