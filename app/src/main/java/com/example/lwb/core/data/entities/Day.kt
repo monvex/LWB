@@ -11,10 +11,10 @@ data class Day(
     val caloriesIntake: Int = 0,
     val proteinsIntake: Int = 0,
     val fatsIntake: Int = 0,
-    val carbohydratesIntake: Int = 0,
-    val recommendedWater: Int = 0,
-    val recommendedCalories: Int = 0,
-    val recommendedProteins: Int = 0,
-    val recommendedFats: Int = 0,
-    val recommendedCarbohydrates: Int = 0
+    val carbohydratesIntake: Int = 10,
+    val recommendedWater: Int = 10,
+    val recommendedCalories: Int = 10,
+    val recommendedProteins: Int = 10,
+    val recommendedFats: Int = 10,
+    val recommendedCarbohydrates: Int = 10
 )

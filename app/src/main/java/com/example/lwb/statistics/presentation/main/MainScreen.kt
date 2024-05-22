@@ -3,8 +3,11 @@ package com.example.lwb.statistics.presentation.main
 import co.yml.charts.common.model.Point
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.border
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -32,6 +35,9 @@ import java.time.YearMonth
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import co.yml.charts.axis.AxisData
@@ -58,15 +64,31 @@ fun MainScreen(
     val days by viewModel.days.collectAsState()
     val image by viewModel.image.collectAsState()
     val description by viewModel.description.collectAsState()
+    val daysWeight: MutableList<Int> = mutableListOf()
+    for (day in days){
+        if (!daysWeight.contains(day.weight)){
+            daysWeight.add(day.weight)
+        }
+    }
     Box(
         modifier = Modifier.padding(5.dp),
         contentAlignment = Alignment.TopCenter
     ) {
 
-        Column {
+        Column(horizontalAlignment = Alignment.CenterHorizontally) {
             ShowCalendar()
             MainSectionCard(title = "Питание", description = description, imageId = image, navController = navController, destination = "foodDiary")
-            if (days.isNotEmpty()) ShowGraphic(days = days)
+            Text(text = "График веса", fontSize = 20.sp, fontWeight = FontWeight.SemiBold)
+            if (days.isNotEmpty() and (daysWeight.size > 1)) ShowGraphic(days = days)
+            else{
+                Row( modifier = Modifier.fillMaxHeight().padding(0.dp, 30.dp), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+                    Text(
+                        text = "Для отображения ваш вес должен изменяться в течение нескольких дней",
+                        modifier = Modifier.fillMaxHeight(),
+                        textAlign = TextAlign.Center
+                    )
+                }
+            }
         }
     }
 }
@@ -93,7 +115,7 @@ fun ShowGraphic(days: List<Day>) {
         .labelData { i ->
             val yMin = pointsData.minOf { it.y }
             val yMax = pointsData.maxOf { it.y }
-            val yScale = (yMax - yMin) / 10
+            val yScale = (yMax - yMin) / 5
             ((i * yScale) + yMin).formatToSinglePrecision()
         }.build()
     val lineChartData = LineChartData(
@@ -117,7 +139,7 @@ fun ShowGraphic(days: List<Day>) {
     LineChart(
         modifier = Modifier
             .fillMaxWidth()
-            .height(250.dp),
+            .height(230.dp),
         lineChartData = lineChartData
     )
 }

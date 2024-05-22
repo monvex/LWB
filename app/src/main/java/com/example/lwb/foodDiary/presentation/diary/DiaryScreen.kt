@@ -250,7 +250,7 @@ fun DiaryScreen(
                     horizontalArrangement = Arrangement.Center
                 ) {
                     Column(
-                        modifier = Modifier.padding(10.dp, 5.dp, 10.dp, 5.dp),
+                        modifier = Modifier.padding(5.dp, 5.dp, 10.dp, 0.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -274,16 +274,16 @@ fun DiaryScreen(
                                             )
                                         }
                                     }
-                                    .size(12.dp)
+                                    .size(10.dp)
                                 )
                             }
                             Column() {
-                                Text("Белки")
+                                Text("Белки(${today.proteinsIntake}/${today.recommendedProteins}г.)")
                             }
                         }
                     }
                     Column(
-                        modifier = Modifier.padding(10.dp, 5.dp, 10.dp, 5.dp),
+                        modifier = Modifier.padding(0.dp, 5.dp, 10.dp, 0.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -307,16 +307,16 @@ fun DiaryScreen(
                                             )
                                         }
                                     }
-                                    .size(12.dp)
+                                    .size(10.dp)
                                 )
                             }
                             Column() {
-                                Text("Жиры")
+                                Text("Жиры(${today.fatsIntake}/${today.recommendedFats}г.)")
                             }
                         }
                     }
                     Column(
-                        modifier = Modifier.padding(10.dp, 5.dp, 10.dp, 5.dp),
+                        modifier = Modifier.padding(0.dp, 5.dp, 10.dp, 5.dp),
                         horizontalAlignment = Alignment.CenterHorizontally
                     ) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
@@ -340,11 +340,11 @@ fun DiaryScreen(
                                             )
                                         }
                                     }
-                                    .size(12.dp)
+                                    .size(10.dp)
                                 )
                             }
                             Column() {
-                                Text("Углеводы")
+                                Text("Углеводы(${today.carbohydratesIntake}/${today.recommendedCarbohydrates}г.)")
                             }
                         }
                     }

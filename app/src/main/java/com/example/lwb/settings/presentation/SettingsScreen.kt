@@ -245,24 +245,6 @@ fun SettingsScreen(
                 }
 
             }
-
-            Row(
-                modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(0.dp , 30.dp , 0.dp , 0.dp),
-                horizontalArrangement = Arrangement.Center
-            ){
-                Button(
-                    onClick = onSignOut,
-                    colors = ButtonDefaults.buttonColors(backgroundColor = Color.Black)
-                ) {
-                    Text(
-                        text = "Выход",
-                        fontSize = 24.sp,
-                        color = Color.White
-                    )
-                }
-            }
         }
     }
 }
