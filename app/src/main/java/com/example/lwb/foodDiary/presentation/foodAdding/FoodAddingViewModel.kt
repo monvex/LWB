@@ -102,11 +102,13 @@ FoodAddingViewModel @Inject constructor(
                 var carbohydrates = 0
                 var stringProducts = ""
                 for ((i, j) in _state.value.chosenProducts.entries){
-                    calories += i.calories * j / 100
-                    proteins += i.proteins * j / 100
-                    fats += i.fats * j / 100
-                    carbohydrates += i.carbohydrates * j / 100
-                    stringProducts += "${i.name}(${_state.value.chosenProducts[i]}г.), "
+                    if (j != 0) {
+                        calories += i.calories * j / 100
+                        proteins += i.proteins * j / 100
+                        fats += i.fats * j / 100
+                        carbohydrates += i.carbohydrates * j / 100
+                        stringProducts += "${i.name}(${_state.value.chosenProducts[i]}г.), "
+                    }
                 }
                 val meal = Meal(id, "$day-$month-$year", _state.value.eating, calories, proteins, fats, carbohydrates, stringProducts.substring(0, stringProducts.length-2))
                 saveMeal(meal, "$day-$month-$year")

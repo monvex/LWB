@@ -109,7 +109,7 @@ fun ShowGraphic(days: List<Day>) {
         .build()
 
     val yAxisData = AxisData.Builder()
-        .steps(10)
+        .steps(5)
         .backgroundColor(Color.White)
         .labelAndAxisLinePadding(20.dp)
         .labelData { i ->
