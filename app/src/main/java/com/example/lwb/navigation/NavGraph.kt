@@ -27,6 +27,8 @@ import com.example.lwb.core.data.entities.User
 import com.example.lwb.exerciseBase.presentation.exerciseDetails.ExerciseDetailsScreen
 import com.example.lwb.exerciseBase.presentation.exerciseList.ExerciseListScreen
 import com.example.lwb.exerciseBase.presentation.exercisePage.ExercisePageScreen
+import com.example.lwb.foodBase.presentation.foodDetails.FoodDetailsScreen
+import com.example.lwb.foodBase.presentation.foodList.FoodListScreen
 import com.example.lwb.foodDiary.presentation.diary.DiaryScreen
 import com.example.lwb.foodDiary.presentation.foodAdding.FoodAddingScreen
 import com.example.lwb.statistics.presentation.main.MainScreen
@@ -99,6 +101,9 @@ fun NavGraph(
         composable("exercisePage") {
             ExercisePageScreen(appState = appState);
         }
+        composable("foodList") {
+            FoodListScreen(appState.navController);
+        }
         composable("foodAdding") {
             FoodAddingScreen(appState.navController);
         }
@@ -112,6 +117,12 @@ fun NavGraph(
             val exerciseId = backStackEntry.arguments?.getString("exerciseId")?.toIntOrNull()
             if (exerciseId != null) {
                 ExerciseDetailsScreen(exerciseId = exerciseId, navController = appState.navController)
+            }
+        }
+        composable("foodDetails/{foodId}") { backStackEntry ->
+            val foodId = backStackEntry.arguments?.getString("foodId")?.toIntOrNull()
+            if (foodId != null) {
+                FoodDetailsScreen(foodId = foodId, navController = appState.navController)
             }
         }
         onBoardingGraph(appState, onboardingViewModel)
